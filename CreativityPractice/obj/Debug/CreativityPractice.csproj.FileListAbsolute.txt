@@ -1,0 +1,10 @@
+c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Debug\CreativityPractice.exe.config
+c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Debug\CreativityPractice.exe
+c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Debug\CreativityPractice.pdb
+c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.csprojResolveAssemblyReference.cache
+c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.EntryMenu.resources
+c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.Properties.Resources.resources
+c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.csproj.GenerateResource.Cache
+c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.exe
+c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.pdb
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.BasicTextPromptForm.resources

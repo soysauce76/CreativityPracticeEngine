@@ -16,6 +16,8 @@ namespace CreativityPractice
         public static string promptPicturesDirectory = "C:/Users/Owner/Documents/CreativityPracticeEngine/PromptPictures";
         public static string submissionsDirectoryName = "Submissions";
         public static string initialPictureUploadDirectory = "C:/Users/Owner/Pictures";
+        public static string generalErrorString = "ERROR";
+        public static string[] categories = { "Art", "Writing", "Poetry", "Music", "Engineering" };
     }
 
     // program-wide functions defined here
@@ -32,7 +34,7 @@ namespace CreativityPractice
             // pull all lines from file
             if (!System.IO.File.Exists(fileName))
             {
-                result.Add("ERROR");
+                result.Add(Constants.generalErrorString);
                 return result;
             }
             string[] fileLines = System.IO.File.ReadAllLines(fileName);
@@ -115,8 +117,8 @@ namespace CreativityPractice
         public static void saveTextPromptResults(String promptName, string prompt, String textContent)
         {
             // build file path for results
-            string filePath = getResultFileName(promptName, ".txt");
-            if (filePath.Equals("ERROR")) { return; }
+            string filePath = getResultFileName(promptName, ".rtf");
+            if (filePath.Equals(Constants.generalErrorString)) { return; }
             System.Windows.Forms.MessageBox.Show(filePath);
 
             try
@@ -139,7 +141,7 @@ namespace CreativityPractice
         {
             // get the output filename
             string destinationPath = getResultFileName(promptName, System.IO.Path.GetExtension(sourcePath));
-            if (destinationPath.Equals("ERROR")) { return; }
+            if (destinationPath.Equals(Constants.generalErrorString)) { return; }
 
             System.Windows.Forms.MessageBox.Show(destinationPath);
 
@@ -160,10 +162,10 @@ namespace CreativityPractice
 //=====================================================================================================
         // The following functions deal with finding folders/paths
 
-        // Checks if a directory exists. Creates directory if not. Returns "ERROR" if creation fails
+        // Checks if a directory exists. Creates directory if not. Returns Constants.generalErrorString if creation fails
         public static string checkDirectory(string dir)
         {
-            if (dir.Contains("ERROR")) { return "ERROR"; }
+            if (dir.Contains(Constants.generalErrorString)) { return Constants.generalErrorString; }
             if (!System.IO.Directory.Exists(dir))
             {
                 try
@@ -173,7 +175,7 @@ namespace CreativityPractice
                 catch (SystemException ex)
                 {
                     Console.WriteLine("Functions.checkDirectory() : Error creating directory " + dir + " Error message: " + ex);
-                    return "ERROR";
+                    return Constants.generalErrorString;
                 }
             }
             return dir;
@@ -185,7 +187,7 @@ namespace CreativityPractice
             string fileName = System.IO.Path.Combine(getPromptsDirectoryName(), categoryFile);
             if (!System.IO.File.Exists(fileName))
             {
-                return "ERROR";
+                return Constants.generalErrorString;
             }
             return fileName;
         }
@@ -225,7 +227,7 @@ namespace CreativityPractice
         {
             // build the file name and path
             string directoryName = getCurrentDateDirectoryName();
-            if (directoryName.Equals("ERROR")) { return "ERROR"; }
+            if (directoryName.Equals(Constants.generalErrorString)) { return Constants.generalErrorString; }
             string fileName = promptName + extension;
             string filePath = System.IO.Path.Combine(directoryName, fileName);
 

@@ -3,8 +3,14 @@ To Add:
 - have prompt determine whether picture upload is available
 
 - prompt creation form
+	- have lines separate prompts
 	- includes pop up screen with commonly used prompt bases
 
 - ability to display 1-2 pictures
 
 - engineering prompts
+
+- ability to upload recorded music files
+
+- build an installer (that defines the prompt locations etc)
+

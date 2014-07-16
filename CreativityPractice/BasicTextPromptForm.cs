@@ -81,7 +81,6 @@ namespace CreativityPractice
         {
             // save text results
             string text = this.richTextBox1.Rtf;
-            // if text box isn't empty, save it
             if (!richTextBox1.Text.Equals("<enter text>") && !richTextBox1.Text.Trim().Equals(""))
             {
                 Functions.saveTextPromptResults(this.promptCategory, this.boldPrompt, text);
@@ -95,13 +94,11 @@ namespace CreativityPractice
             }
 
             generateNewPrompt();
-            //this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
         virtual public void skipButton_Click(object sender, EventArgs e)
         {
             generateNewPrompt();
-            //this.DialogResult = System.Windows.Forms.DialogResult.Retry;
         }
 
         // generate a new prompt without destroying or reloading form

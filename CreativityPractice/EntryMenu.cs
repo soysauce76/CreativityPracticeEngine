@@ -19,18 +19,11 @@ namespace CreativityPractice
         {
             InitializeComponent();
             // Sets up the initial objects in the CheckedListBox. 
-            string[] myGenres = { "Art", "Writing", "Poetry", "Music" };
+            //string[] myGenres = { "Art", "Writing", "Poetry", "Music" };
+            string[] myGenres = Constants.categories;
             genreCheckedListBox.Items.AddRange(myGenres);
         }
 
-        private void mouseOverStart(object sender, EventArgs e)
-        {
-            startButton.ForeColor = System.Drawing.Color.Cyan;
-        }
-        private void mouseLeavesStart(object sender, EventArgs e)
-        {
-            startButton.ForeColor = System.Drawing.Color.Black;
-        }
 
         private void startButton_Click(object sender, EventArgs e)
         {
@@ -58,6 +51,34 @@ namespace CreativityPractice
             PromptGenerator promptGenerator = new PromptGenerator(checkedItemsList);
             promptGenerator.generatePrompt();
         }
+
+        private void mouseOverStart(object sender, EventArgs e)
+        {
+            startButton.ForeColor = System.Drawing.Color.Cyan;
+        }
+        private void mouseLeavesStart(object sender, EventArgs e)
+        {
+            startButton.ForeColor = System.Drawing.Color.Black;
+        }
+        private void createNewPromptsLabel_MouseEnter(object sender, EventArgs e)
+        {
+            createNewPromptsLabel.ForeColor = System.Drawing.Color.Cyan;
+        }
+        private void createNewPromptsLabel_MouseLeave(object sender, EventArgs e)
+        {
+            createNewPromptsLabel.ForeColor = System.Drawing.Color.Black;
+        }
+
+        private void createNewPromptsLabel_Click(object sender, EventArgs e)
+        {
+            // pop open new form 
+            CreateNewPromptsForm creation = new CreateNewPromptsForm();
+            if (creation.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+        }
+
 
     }
 }

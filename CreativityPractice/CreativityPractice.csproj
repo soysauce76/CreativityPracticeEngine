@@ -51,6 +51,12 @@
     <Compile Include="BasicTextPromptForm.Designer.cs">
       <DependentUpon>BasicTextPromptForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateNewPromptsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateNewPromptsForm.Designer.cs">
+      <DependentUpon>CreateNewPromptsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EntryMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BasicTextPromptForm.resx">
       <DependentUpon>BasicTextPromptForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateNewPromptsForm.resx">
+      <DependentUpon>CreateNewPromptsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EntryMenu.resx">
       <DependentUpon>EntryMenu.cs</DependentUpon>

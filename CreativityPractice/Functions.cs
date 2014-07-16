@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace CreativityPractice
 {
 
+    // program-wide constants defined here
     static class Constants
     {
         public static string mainDirectory = "C:/Users/Owner/Documents/CreativityPracticeEngine";
@@ -17,39 +18,12 @@ namespace CreativityPractice
         public static string initialPictureUploadDirectory = "C:/Users/Owner/Pictures";
     }
 
+    // program-wide functions defined here
     public class Functions
     {
-        // The following functions deal with finding folders/paths
 
-        // Checks if directory exists. Creates directory if not. Returns "ERROR" if creation fails
-        public static string checkDirectory(string dir)
-        {
-            if (dir.Contains("ERROR")) { return "ERROR"; }
-            if (!System.IO.Directory.Exists(dir))
-            {
-                try {
-                    System.IO.Directory.CreateDirectory(dir);
-                }
-                catch (SystemException ex)
-                {
-                    Console.WriteLine("Functions.checkDirectory() : Error creating directory " + dir + " Error message: " + ex);
-                    return "ERROR";
-                }
-            }
-            return dir;
-        }
- 
-
-        public static string getCategoryFileName(string category)
-        {
-            string categoryFile = category + "Prompts.txt";
-            string fileName = System.IO.Path.Combine(getPromptsDirectoryName(), categoryFile);
-            if (!System.IO.File.Exists(fileName))
-            {
-                return "ERROR";
-            }
-            return fileName;
-        }
+//================================================================================================
+        // the following involves reading/parsing prompt files
 
         public static List<string> getPromptsFromFile(string fileName)
         {
@@ -132,68 +106,16 @@ namespace CreativityPractice
 
         }
 
-        public static string getPromptsDirectoryName()
-        {
-            string directoryName = System.IO.Path.Combine(Constants.mainDirectory, Constants.promptsDirectory);
-            directoryName = checkDirectory(directoryName);
-            return directoryName;
-        }
-
-        public static string getPromptPicturesDirectoryName()
-        {
-            string directoryName = System.IO.Path.Combine(Constants.mainDirectory, Constants.promptPicturesDirectory);
-            directoryName = checkDirectory(directoryName);
-            return directoryName;
-        }   
-
-        public static string getSubmissionsDirectoryName()
-        {
-            string directoryName = System.IO.Path.Combine(Constants.mainDirectory, Constants.submissionsDirectoryName);
-            directoryName = checkDirectory(directoryName);
-            return directoryName;
-        }
-
-        public static string getCurrentDateDirectoryName()
-        {
-            DateTime myDate = DateTime.Now;
-            string dateString = myDate.ToString("MMM_dd_yyy");
-            string directoryName = System.IO.Path.Combine(getSubmissionsDirectoryName(), dateString);
-            directoryName = checkDirectory(directoryName);
-            return directoryName;
-        }
-
-        public static string getResultFileName(string promptName)
-        {
-            // build the file name and path
-            string directoryName = getCurrentDateDirectoryName();
-            if (directoryName.Equals("ERROR")) { return "ERROR"; }
-            string fileName = promptName + ".rtf";
-            string filePath = System.IO.Path.Combine(directoryName, fileName);
-
-            // in case there is a similarly named file, rename this one with V2, V3 etc.
-            int i = 2;
-            while (System.IO.File.Exists(filePath))
-            {
-                // if already V2 or higher, remove version tag before adding new one
-                if (i > 2)
-                {
-                    filePath = filePath.Substring(0, filePath.Length - 3);
-                }
-                filePath = filePath.Substring(0, filePath.Length - 4) + "_V" + i + ".rtf";
-                i++;
-            }
-            return filePath;
-        }
 
 //=====================================================================================================
         
-        // the following involves saving result files
+        // the following functions save result files
 
         // Saves a plain text file result
         public static void saveTextPromptResults(String promptName, string prompt, String textContent)
         {
             // build file path for results
-            string filePath = getResultFileName(promptName);
+            string filePath = getResultFileName(promptName, ".txt");
             if (filePath.Equals("ERROR")) { return; }
             System.Windows.Forms.MessageBox.Show(filePath);
 
@@ -212,5 +134,118 @@ namespace CreativityPractice
             }
         }
 
+        // copy a picture file from its current location to the submissions directory, with new name
+        public static void savePictureResult(string promptName, string sourcePath)
+        {
+            // get the output filename
+            string destinationPath = getResultFileName(promptName, System.IO.Path.GetExtension(sourcePath));
+            if (destinationPath.Equals("ERROR")) { return; }
+
+            System.Windows.Forms.MessageBox.Show(destinationPath);
+
+            // now copy the file over
+            try
+            {
+                System.IO.File.Copy(sourcePath, destinationPath);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Error copying file " + System.IO.Path.GetFileName(sourcePath) + " to " + destinationPath);
+                System.Windows.Forms.MessageBox.Show("Error copying file " + System.IO.Path.GetFileName(sourcePath) + " to " + 
+                    destinationPath + "\nError: " + ex);
+            }
+        }
+
+
+//=====================================================================================================
+        // The following functions deal with finding folders/paths
+
+        // Checks if a directory exists. Creates directory if not. Returns "ERROR" if creation fails
+        public static string checkDirectory(string dir)
+        {
+            if (dir.Contains("ERROR")) { return "ERROR"; }
+            if (!System.IO.Directory.Exists(dir))
+            {
+                try
+                {
+                    System.IO.Directory.CreateDirectory(dir);
+                }
+                catch (SystemException ex)
+                {
+                    Console.WriteLine("Functions.checkDirectory() : Error creating directory " + dir + " Error message: " + ex);
+                    return "ERROR";
+                }
+            }
+            return dir;
+        }
+
+        public static string getCategoryFileName(string category)
+        {
+            string categoryFile = category + "Prompts.txt";
+            string fileName = System.IO.Path.Combine(getPromptsDirectoryName(), categoryFile);
+            if (!System.IO.File.Exists(fileName))
+            {
+                return "ERROR";
+            }
+            return fileName;
+        }
+
+        public static string getPromptsDirectoryName()
+        {
+            string directoryName = System.IO.Path.Combine(Constants.mainDirectory, Constants.promptsDirectory);
+            directoryName = checkDirectory(directoryName);
+            return directoryName;
+        }
+
+        public static string getPromptPicturesDirectoryName()
+        {
+            string directoryName = System.IO.Path.Combine(Constants.mainDirectory, Constants.promptPicturesDirectory);
+            directoryName = checkDirectory(directoryName);
+            return directoryName;
+        }
+
+        public static string getSubmissionsDirectoryName()
+        {
+            string directoryName = System.IO.Path.Combine(Constants.mainDirectory, Constants.submissionsDirectoryName);
+            directoryName = checkDirectory(directoryName);
+            return directoryName;
+        }
+
+        public static string getCurrentDateDirectoryName()
+        {
+            DateTime myDate = DateTime.Now;
+            string dateString = myDate.ToString("MMM_dd_yyy");
+            string directoryName = System.IO.Path.Combine(getSubmissionsDirectoryName(), dateString);
+            directoryName = checkDirectory(directoryName);
+            return directoryName;
+        }
+
+        // builds submission file name
+        public static string getResultFileName(string promptName, string extension)
+        {
+            // build the file name and path
+            string directoryName = getCurrentDateDirectoryName();
+            if (directoryName.Equals("ERROR")) { return "ERROR"; }
+            string fileName = promptName + extension;
+            string filePath = System.IO.Path.Combine(directoryName, fileName);
+
+            // in case there is a similarly named file, rename this one with V2, V3 etc.
+            int i = 2;
+            while (System.IO.File.Exists(filePath))
+            {
+                // if already V2 or higher, remove version tag before adding new one
+                if (i > 2)
+                {
+                    filePath = System.IO.Path.Combine(directoryName, System.IO.Path.GetFileNameWithoutExtension(filePath));
+                    filePath = filePath.Substring(0, filePath.Length - 3);
+                }
+                filePath = filePath.Substring(0, filePath.Length - 4) + "_V" + i + extension;
+                i++;
+            }
+            return filePath;
+        }
     }
+
 }
+
+

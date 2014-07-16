@@ -1,0 +1,10 @@
+To Add:
+
+- have prompt determine whether picture upload is available
+
+- prompt creation form
+	- includes pop up screen with commonly used prompt bases
+
+- ability to display 1-2 pictures
+
+- engineering prompts

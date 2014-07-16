@@ -21,6 +21,7 @@ namespace CreativityPractice
         public string boldPrompt;
         public int promptNumber;
         public string promptCategory;
+        public string fileToUpload;
    
         public BasicTextPromptForm()
         {
@@ -38,6 +39,8 @@ namespace CreativityPractice
             boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 12, FontStyle.Bold);
             uploadPictureLabel.Visible = false;
             uploadedFileLabel.Text = "";
+            fileToUpload = "";
+            richTextBox1.Text = "<enter text>";
 
             this.promptCategory = input.category;
             this.promptNumber = input.num;
@@ -76,9 +79,21 @@ namespace CreativityPractice
 
         private void submitButton_Click(object sender, EventArgs e)
         {
+            // save text results
             string text = this.richTextBox1.Rtf;
-            Functions.saveTextPromptResults(this.promptCategory, this.boldPrompt, text);
+            // if text box isn't empty, save it
+            if (!richTextBox1.Text.Equals("<enter text>") && !richTextBox1.Text.Trim().Equals(""))
+            {
+                Functions.saveTextPromptResults(this.promptCategory, this.boldPrompt, text);
+            }
             this.richTextBox1.Clear();
+
+            // save picture result
+            if (fileToUpload.Length > 0)
+            {
+                Functions.savePictureResult(this.promptCategory, this.fileToUpload);
+            }
+
             generateNewPrompt();
             //this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
@@ -442,6 +457,7 @@ namespace CreativityPractice
                     return;
                 }
                 uploadedFileLabel.Text = System.IO.Path.GetFileName(fileName);
+                fileToUpload = fileName;
             }
 
         }

@@ -44,20 +44,19 @@ namespace CreativityPractice
             string resultString = "";
             for (int i = 0; i < fileLines.Length; i++)
             {
-                // if encounter "Name:" then start recording new prompt
-                if (fileLines[i].Split()[0].Equals("name:")) 
+                // if encounter "tag:" then start recording new prompt
+                if (fileLines[i].Split()[0].Equals("tag:")) 
                 {
                     resultString = "";
                     recording = true;
                 }
-                // if encounter a blank line followed by "Name:", then last prompt is over.
-                else if (fileLines[i].Trim().Length == 0 && i < fileLines.Length - 1)
+                // if encounter "=====" then prompt is over
+                else if (fileLines[i].Contains("======================"))
+                //else if (fileLines[i].Trim().Length == 0 && i < fileLines.Length - 1)
                 {
-                    if (fileLines[i + 1].Contains("name:"))
-                    {
+                    //if (fileLines[i + 1].Contains("tag:"))
                         recording = false;
                         result.Add(resultString);
-                    }
                 }
                 // if recording new prompt, add line to result string
                 if (recording == true)
@@ -71,42 +70,42 @@ namespace CreativityPractice
             return result;
         }
 
-        public static BasicTextPrompt parsePrompt(string promptString)
-        {
-            BasicTextPrompt newPrompt = new BasicTextPrompt();
+        //public static BasicTextPrompt parsePrompt(string promptString)
+        //{
+        //    BasicTextPrompt newPrompt = new BasicTextPrompt();
 
-            string cat = "";
-            string thinking = "";
-            int tim = 0;
-            string bold = "";
-            string grey = "";
-            bool text = false;
+        //    string label = "";
+        //    string thinking = "";
+        //    int tim = 0;
+        //    string bold = "";
+        //    string gray = "";
+        //    bool text = false;
 
-            string[] promptLines = System.Text.RegularExpressions.Regex.Split(promptString, @"\r?\n|\r");
+        //    string[] promptLines = System.Text.RegularExpressions.Regex.Split(promptString, @"\r?\n|\r");
 
-            // parse the text file and populate the new BasicTextPrompt instance
-            Console.WriteLine("Trying to parse text file!");
-            for (int i = 0; i < promptLines.Length; i++)
-            {
-                string line = promptLines[i];
-                string[] tokens = line.Split(':');
-                if (tokens.Length != 2) { continue; }
-                Console.WriteLine("token[0] = '" + tokens[0] + "' and token[1] = '" + tokens[1] + "'");
-                if (tokens[0].Equals("name")) { cat = tokens[1].Trim(); }
-                if (tokens[0].Equals("creativity type")) { thinking = tokens[1].Trim(); }
-                if (tokens[0].Equals("time")) { tim = Convert.ToInt32(tokens[1].Trim()); }
-                if (tokens[0].Equals("pictures")) { }
-                if (tokens[0].Equals("picture response")) { }
-                if (tokens[0].Equals("text response")) { if (tokens[1].Trim().Equals("yes")) { text = true; } }
-                if (tokens[0].Equals("bold prompt")) { bold = tokens[1].Trim(); }
-                if (tokens[0].Equals("grey prompt")) { grey = tokens[1].Trim(); }
-            }
+        //    // parse the text file and populate the new BasicTextPrompt instance
+        //    Console.WriteLine("Trying to parse text file!");
+        //    for (int i = 0; i < promptLines.Length; i++)
+        //    {
+        //        string line = promptLines[i];
+        //        string[] tokens = line.Split(':');
+        //        if (tokens.Length != 2) { continue; }
+        //        Console.WriteLine("token[0] = '" + tokens[0] + "' and token[1] = '" + tokens[1] + "'");
+        //        if (tokens[0].Equals("name")) { label = tokens[1].Trim(); }
+        //        if (tokens[0].Equals("creativity type")) { thinking = tokens[1].Trim(); }
+        //        if (tokens[0].Equals("time")) { tim = Convert.ToInt32(tokens[1].Trim()); }
+        //        if (tokens[0].Equals("pictures")) { }
+        //        if (tokens[0].Equals("picture response")) { }
+        //        if (tokens[0].Equals("text response")) { if (tokens[1].Trim().Equals("yes")) { text = true; } }
+        //        if (tokens[0].Equals("bold prompt")) { bold = tokens[1].Trim(); }
+        //        if (tokens[0].Equals("grey prompt")) { gray = tokens[1].Trim(); }
+        //    }
 
-            // generate the new prompt
-            newPrompt = new BasicTextPrompt(0, text, cat, thinking, "", tim, bold, grey);
-            return newPrompt;
+        //    // generate the new prompt
+        //    newPrompt = new BasicTextPrompt(new List<string>(), label, "", thinking, tim, bold, gray);
+        //    return newPrompt;
 
-        }
+        //}
 
 
 //=====================================================================================================

@@ -90,53 +90,47 @@ namespace CreativityPractice
             Console.WriteLine("chosen file = " + choicePrompt);
 
             // process the prompt
-            newPrompt = Functions.parsePrompt(choicePrompt);
+            newPrompt = BasicTextPrompt.parsePrompt(choicePrompt, category);
 
             // return the final prompt
             return newPrompt;
         }
 
-        private BasicTextPrompt readInPrompt(string fileName)
-        {
-            BasicTextPrompt newPrompt = new BasicTextPrompt();
-            // read in file
-            string[] fileContents = new string[0];
-            try
-            {
-                fileContents = System.IO.File.ReadAllLines(fileName);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
-            }
-            string cat = "";
-            string thinking = "";
-            int tim = 0;
-            string bold = "";
-            string grey = "";
-            bool text = false;
+        //private BasicTextPrompt readInPrompt(string fileName)
+        //{
+        //    BasicTextPrompt newPrompt = new BasicTextPrompt();
 
-            // parse the text file and populate the new BasicTextPrompt instance
-            Console.WriteLine("Trying to parse text file!");
-            for (int i = 0; i < fileContents.Length; i++)
-            {
-                string line = fileContents[i];
-                string[] tokens = line.Split(':');
-                if (tokens.Length != 2) { continue; }
-                Console.WriteLine("token[0] = '" + tokens[0] + "' and token[1] = '" + tokens[1] + "'");
-                if (tokens[0].Equals("category")) { cat = tokens[1].Trim(); }
-                if (tokens[0].Equals("creativity type")) { thinking = tokens[1].Trim(); }
-                if (tokens[0].Equals("time")) { tim = Convert.ToInt32(tokens[1].Trim()); }
-                if (tokens[0].Equals("text box")) { if (tokens[1].Trim().Equals("yes")) { text = true; } }
-                if (tokens[0].Equals("bold prompt")) { bold = tokens[1].Trim(); }
-                if (tokens[0].Equals("grey prompt")) { grey = tokens[1].Trim(); }
-            }
+        //    string label = "";
+        //    string thinking = "";
+        //    int tim = 0;
+        //    string bold = "";
+        //    string gray = "";
+        //    bool text = false;
 
-            // generate the new prompt
-            newPrompt = new BasicTextPrompt(0, text, cat, thinking, "", tim, bold, grey);
-            return newPrompt;
-        }
+        //    string[] promptLines = System.Text.RegularExpressions.Regex.Split(promptString, @"\r?\n|\r");
+
+        //    // parse the text file and populate the new BasicTextPrompt instance
+        //    Console.WriteLine("Trying to parse text file!");
+        //    for (int i = 0; i < promptLines.Length; i++)
+        //    {
+        //        string line = promptLines[i];
+        //        string[] tokens = line.Split(':');
+        //        if (tokens.Length != 2) { continue; }
+        //        Console.WriteLine("token[0] = '" + tokens[0] + "' and token[1] = '" + tokens[1] + "'");
+        //        if (tokens[0].Equals("name")) { label = tokens[1].Trim(); }
+        //        if (tokens[0].Equals("creativity type")) { thinking = tokens[1].Trim(); }
+        //        if (tokens[0].Equals("time")) { tim = Convert.ToInt32(tokens[1].Trim()); }
+        //        if (tokens[0].Equals("pictures")) { }
+        //        if (tokens[0].Equals("picture response")) { }
+        //        if (tokens[0].Equals("text response")) { if (tokens[1].Trim().Equals("yes")) { text = true; } }
+        //        if (tokens[0].Equals("bold prompt")) { bold = tokens[1].Trim(); }
+        //        if (tokens[0].Equals("grey prompt")) { gray = tokens[1].Trim(); }
+        //    }
+
+        //    // generate the new prompt
+        //    newPrompt = new BasicTextPrompt(new List<string>(), label, "", thinking, tim, bold, gray);
+        //    return newPrompt;
+        //}
 
     }
 }

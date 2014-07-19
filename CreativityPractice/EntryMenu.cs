@@ -13,8 +13,6 @@ namespace CreativityPractice
     public partial class EntryMenu : Form
     {
 
-        public string promptFiles = "C:/Users/Owner/Desktop/creativityPrompts";
-
         public EntryMenu()
         {
             InitializeComponent();

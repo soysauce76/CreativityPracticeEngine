@@ -46,12 +46,15 @@
             this.timeBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.includePicturesButton = new System.Windows.Forms.Button();
+            this.pictureLabel1 = new System.Windows.Forms.Label();
+            this.pictureLabel2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // createButton
             // 
             this.createButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createButton.Location = new System.Drawing.Point(313, 351);
+            this.createButton.Location = new System.Drawing.Point(313, 368);
             this.createButton.Name = "createButton";
             this.createButton.Size = new System.Drawing.Size(109, 33);
             this.createButton.TabIndex = 0;
@@ -68,6 +71,7 @@
             this.boldPromptBox.Size = new System.Drawing.Size(553, 101);
             this.boldPromptBox.TabIndex = 1;
             this.boldPromptBox.Text = "<enter text>";
+            this.boldPromptBox.Click += new System.EventHandler(this.boldPromptBox_Click);
             // 
             // grayPromptBox
             // 
@@ -158,7 +162,7 @@
             // 
             this.ideasLabel.AutoSize = true;
             this.ideasLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ideasLabel.Location = new System.Drawing.Point(540, 362);
+            this.ideasLabel.Location = new System.Drawing.Point(540, 379);
             this.ideasLabel.Name = "ideasLabel";
             this.ideasLabel.Size = new System.Drawing.Size(173, 15);
             this.ideasLabel.TabIndex = 10;
@@ -173,9 +177,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(157, 56);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(91, 16);
+            this.label5.Size = new System.Drawing.Size(82, 16);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Prompt Label:";
+            this.label5.Text = "Prompt Tag:";
             // 
             // nameTextBox
             // 
@@ -191,9 +195,9 @@
             this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label6.Location = new System.Drawing.Point(262, 81);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(288, 13);
+            this.label6.Size = new System.Drawing.Size(250, 13);
             this.label6.TabIndex = 13;
-            this.label6.Text = "* No spaces allowed. Example: 5_enviro_thumbnails_desert";
+            this.label6.Text = "* Spaces in tag will be replaced by \"_\" for file safety";
             // 
             // label7
             // 
@@ -234,12 +238,50 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Prompt Creator";
             // 
+            // includePicturesButton
+            // 
+            this.includePicturesButton.Location = new System.Drawing.Point(154, 342);
+            this.includePicturesButton.Name = "includePicturesButton";
+            this.includePicturesButton.Size = new System.Drawing.Size(125, 23);
+            this.includePicturesButton.TabIndex = 18;
+            this.includePicturesButton.Text = "Include Pictures";
+            this.includePicturesButton.UseVisualStyleBackColor = true;
+            this.includePicturesButton.Click += new System.EventHandler(this.includePicturesButton_Click);
+            // 
+            // pictureLabel1
+            // 
+            this.pictureLabel1.AutoSize = true;
+            this.pictureLabel1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pictureLabel1.Location = new System.Drawing.Point(288, 348);
+            this.pictureLabel1.Name = "pictureLabel1";
+            this.pictureLabel1.Size = new System.Drawing.Size(57, 13);
+            this.pictureLabel1.TabIndex = 19;
+            this.pictureLabel1.Text = "No Picture";
+            this.pictureLabel1.Click += new System.EventHandler(this.pictureLabel1_Click);
+            this.pictureLabel1.MouseEnter += new System.EventHandler(this.pictureLabel1_MouseEnter);
+            this.pictureLabel1.MouseLeave += new System.EventHandler(this.pictureLabel1_MouseLeave);
+            // 
+            // pictureLabel2
+            // 
+            this.pictureLabel2.AutoSize = true;
+            this.pictureLabel2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pictureLabel2.Location = new System.Drawing.Point(509, 347);
+            this.pictureLabel2.Name = "pictureLabel2";
+            this.pictureLabel2.Size = new System.Drawing.Size(0, 13);
+            this.pictureLabel2.TabIndex = 20;
+            this.pictureLabel2.Click += new System.EventHandler(this.pictureLabel2_Click);
+            this.pictureLabel2.MouseEnter += new System.EventHandler(this.pictureLabel2_MouseEnter);
+            this.pictureLabel2.MouseLeave += new System.EventHandler(this.pictureLabel2_MouseLeave);
+            // 
             // CreateNewPromptsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(735, 389);
+            this.ClientSize = new System.Drawing.Size(735, 413);
+            this.Controls.Add(this.pictureLabel2);
+            this.Controls.Add(this.pictureLabel1);
+            this.Controls.Add(this.includePicturesButton);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.timeBox);
@@ -285,5 +327,8 @@
         private System.Windows.Forms.TextBox timeBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button includePicturesButton;
+        private System.Windows.Forms.Label pictureLabel1;
+        private System.Windows.Forms.Label pictureLabel2;
     }
 }

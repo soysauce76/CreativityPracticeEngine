@@ -43,9 +43,8 @@ namespace CreativityPractice
             richTextBox1.Text = "<enter text>";
 
             this.promptCategory = input.category;
-            this.promptNumber = input.num;
             this.boldPrompt = input.boldPrompt;
-            promptTypeLabel.Text = input.creativityType;
+            promptTypeLabel.Text = input.creativityType + " Thinking";
             boldPromptBox.Text = input.boldPrompt;
             if (input.useUploadPicture == true)
             {
@@ -73,7 +72,8 @@ namespace CreativityPractice
 
             greyPromptBox.Text = input.greyPrompt;
             timeLabel.Text = input.suggestedTime + ":00";
-            if (input.useTextBox == true) { richTextBox1.Visible = true; }
+            //if (input.useTextBox == true) { richTextBox1.Visible = true; }
+            richTextBox1.Visible = true;
             timer1.Start();
         }
 

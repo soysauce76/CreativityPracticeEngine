@@ -1,9 +1,8 @@
 To Add:
 
-- prompt creation form
-	- includes pop up screen with commonly used prompt bases
-
 - ability to display 1-2 pictures
+
+- expand screen with commonly used prompt bases
 
 - ability to upload recorded music files
 

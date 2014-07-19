@@ -82,7 +82,7 @@ namespace CreativityPractice
             {
                 string line = promptLines[i];
                 string[] tokens = line.Split(':');
-                if (tokens.Length != 2) { continue; }
+                if (tokens.Length < 2) { continue; }
                 Console.WriteLine("token[0] = '" + tokens[0] + "' and token[1] = '" + tokens[1] + "'");
                 if (tokens[0].Equals("tag")) { nametag = tokens[1].Trim(); }
                 if (tokens[0].Equals("creativityType")) { thinking = tokens[1].Trim(); }
@@ -90,8 +90,8 @@ namespace CreativityPractice
                 if (tokens[0].Equals("picture1")) { pic1 = tokens[1].Trim(); }
                 if (tokens[0].Equals("picture2")) { pic2 = tokens[1].Trim(); }
                 if (tokens[0].Equals("pictureResponse")) { }
-                if (tokens[0].Equals("boldPrompt")) { bold = tokens[1].Trim(); }
-                if (tokens[0].Equals("greyPrompt")) { gray = tokens[1].Trim(); }
+                if (tokens[0].Equals("boldPrompt")) { bold = line.Substring(line.IndexOf(':') + 2); }
+                if (tokens[0].Equals("grayPrompt")) { gray = line.Substring(line.IndexOf(':') + 2); }
             }
 
             // generate the new prompt
@@ -113,9 +113,14 @@ namespace CreativityPractice
             Console.WriteLine("output file for new prompt is: " + outputFile);
             System.Windows.Forms.MessageBox.Show("output file for new prompt is: " + outputFile);
 
+            // create output prompt file if it doesn't exist yet
             if (!System.IO.File.Exists(outputFile))
             {
-                System.IO.File.Create(outputFile);
+                System.IO.FileStream fs = new System.IO.FileStream(outputFile, System.IO.FileMode.OpenOrCreate);
+                System.IO.StreamWriter str = new System.IO.StreamWriter(fs);
+                str.Flush();
+                str.Close();
+                fs.Close();
             }
             if (!System.IO.File.Exists(outputFile))
             {
@@ -135,7 +140,7 @@ namespace CreativityPractice
                             "grayPrompt: " + greyPrompt + System.Environment.NewLine + System.Environment.NewLine +
                             "=============================================================" + System.Environment.NewLine;
 
-            // append to file
+            // append new prompt to file
             using (System.IO.StreamWriter sw = System.IO.File.AppendText(outputFile))
             {
                 try

@@ -21,6 +21,7 @@ namespace CreativityPractice
         public string boldPrompt;
         public int promptNumber;
         public string promptCategory;
+        public string promptTag;
         public string fileToUpload;
    
         public BasicTextPromptForm()
@@ -42,20 +43,24 @@ namespace CreativityPractice
             fileToUpload = "";
             richTextBox1.Text = "<enter text>";
 
+            this.promptTag = input.tag;
             this.promptCategory = input.category;
             this.boldPrompt = input.boldPrompt;
             promptTypeLabel.Text = input.creativityType + " Thinking";
             boldPromptBox.Text = input.boldPrompt;
+
             if (input.useUploadPicture == true)
             {
                 uploadPictureLabel.Visible = true;
             }
-            //// reduce extension if currently extended, and reset font size
-            //this.Height = this.Height - currentExtension;
-            //currentExtension = 0;
+
             // if prompt is big, reduce font size
             if (boldPromptBox.Text.Length > 200) { boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 11); }
             if (boldPromptBox.Text.Length > 300) { boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 9); }
+
+            //// reduce extension if currently extended, and reset font size
+            //this.Height = this.Height - currentExtension;
+            //currentExtension = 0;            
             //// if prompt is too long, start extending length of prompt box
             //if (boldPromptBox.Text.Length > 350) 
             //{ 
@@ -72,7 +77,6 @@ namespace CreativityPractice
 
             greyPromptBox.Text = input.greyPrompt;
             timeLabel.Text = input.suggestedTime + ":00";
-            //if (input.useTextBox == true) { richTextBox1.Visible = true; }
             richTextBox1.Visible = true;
             timer1.Start();
         }
@@ -83,7 +87,7 @@ namespace CreativityPractice
             string text = this.richTextBox1.Rtf;
             if (!richTextBox1.Text.Equals("<enter text>") && !richTextBox1.Text.Trim().Equals(""))
             {
-                Functions.saveTextPromptResults(this.promptCategory, this.boldPrompt, text);
+                Functions.saveTextPromptResults(this.promptTag, this.boldPrompt, text);
             }
             this.richTextBox1.Clear();
 

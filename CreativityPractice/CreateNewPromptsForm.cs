@@ -78,7 +78,6 @@ namespace CreativityPractice
 
             BasicTextPrompt newPrompt = new BasicTextPrompt(pics, promptName, category, creativityType, tim, boldPrompt, grayPrompt);
             newPrompt.writeOut();
-            MessageBox.Show("You clicked Create!");
         }
 
         // check that information has been entered correctly in the form
@@ -158,7 +157,10 @@ namespace CreativityPractice
         // display some prompt ideas or commonly used prompts to copy/paste and modify
         private void ideasLabel_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Come up with your own damn ideas, lazy ass");
+            MessageBox.Show("Develop 4 environment thumbnails (b&w or color) for :" + Environment.NewLine
+                + "Develop 5 rough b&w creature concepts for : _______ OR this weeks COW challenge" + Environment.NewLine
+                + "Develop 3 rough mechanical designs for: " + Environment.NewLine
+                + "Please upload final picture below");
         }
 
         // allow user to select a picture to use for the prompt

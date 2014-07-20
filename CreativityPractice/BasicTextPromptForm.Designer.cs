@@ -43,6 +43,12 @@
             this.greyPromptBox = new System.Windows.Forms.TextBox();
             this.uploadPictureLabel = new System.Windows.Forms.Label();
             this.uploadedFileLabel = new System.Windows.Forms.Label();
+            this.pictureBoxCenter = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCenter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -52,6 +58,7 @@
             // 
             // clearTimeButton
             // 
+            this.clearTimeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.clearTimeButton.AutoSize = true;
             this.clearTimeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clearTimeButton.ForeColor = System.Drawing.SystemColors.ButtonShadow;
@@ -75,6 +82,7 @@
             // 
             // timeLabel
             // 
+            this.timeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.timeLabel.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.timeLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.timeLabel.Enabled = false;
@@ -89,6 +97,7 @@
             // 
             // plusButton
             // 
+            this.plusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.plusButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.plusButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.plusButton.Location = new System.Drawing.Point(573, 12);
@@ -103,6 +112,7 @@
             // 
             // minusButton
             // 
+            this.minusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.minusButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.minusButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minusButton.Location = new System.Drawing.Point(573, 36);
@@ -162,9 +172,11 @@
             this.richTextBox1.Text = "<enter text>";
             this.richTextBox1.Click += new System.EventHandler(this.richTextBox1_Click);
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox1_KeyDown);
+            this.richTextBox1.Resize += new System.EventHandler(this.richTextBox1_Resize);
             // 
             // boldPromptBox
             // 
+            this.boldPromptBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.boldPromptBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.boldPromptBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.boldPromptBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -194,6 +206,7 @@
             // 
             // uploadPictureLabel
             // 
+            this.uploadPictureLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.uploadPictureLabel.AutoSize = true;
             this.uploadPictureLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uploadPictureLabel.Location = new System.Drawing.Point(27, 380);
@@ -215,12 +228,42 @@
             this.uploadedFileLabel.Size = new System.Drawing.Size(0, 13);
             this.uploadedFileLabel.TabIndex = 14;
             // 
+            // pictureBoxCenter
+            // 
+            this.pictureBoxCenter.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxCenter.Location = new System.Drawing.Point(214, 80);
+            this.pictureBoxCenter.Name = "pictureBoxCenter";
+            this.pictureBoxCenter.Size = new System.Drawing.Size(52, 21);
+            this.pictureBoxCenter.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxCenter.TabIndex = 15;
+            this.pictureBoxCenter.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(30, 80);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(72, 21);
+            this.pictureBox1.TabIndex = 16;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(313, 80);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(99, 19);
+            this.pictureBox2.TabIndex = 17;
+            this.pictureBox2.TabStop = false;
+            // 
             // BasicTextPromptForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(606, 433);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBoxCenter);
             this.Controls.Add(this.uploadedFileLabel);
             this.Controls.Add(this.uploadPictureLabel);
             this.Controls.Add(this.greyPromptBox);
@@ -233,9 +276,14 @@
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.promptTypeLabel);
             this.Controls.Add(this.clearTimeButton);
+            this.MinimumSize = new System.Drawing.Size(622, 471);
             this.Name = "BasicTextPromptForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Creativity Practice Engine";
+            this.Resize += new System.EventHandler(this.BasicTextPromptForm_Resize);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCenter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -257,5 +305,8 @@
         private System.Windows.Forms.TextBox boldPromptBox;
         private System.Windows.Forms.Label uploadPictureLabel;
         private System.Windows.Forms.Label uploadedFileLabel;
+        private System.Windows.Forms.PictureBox pictureBoxCenter;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

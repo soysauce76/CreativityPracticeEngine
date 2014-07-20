@@ -17,19 +17,21 @@ namespace CreativityPractice
         public int secondSpeed = 1000;
         public int mouseTimerInterval = 100;
         public List<string> categories;
-        //private int currentExtension;
+        private int currentExtension;
         public string boldPrompt;
         public int promptNumber;
         public string promptCategory;
         public string promptTag;
         public string fileToUpload;
+        public string picture1;
+        public string picture2;
    
         public BasicTextPromptForm()
         {
             InitializeComponent();
             categories = new List<string>();
             richTextBox1.Visible = false;
-            //currentExtension = 0;
+            currentExtension = 0;
         }
 
         public void InitializePrompt(BasicTextPrompt input) 
@@ -42,10 +44,23 @@ namespace CreativityPractice
             uploadedFileLabel.Text = "";
             fileToUpload = "";
             richTextBox1.Text = "<enter text>";
+            this.picture1 = ""; this.picture2 = "";
+            pictureBoxCenter.Visible = false;
+            pictureBoxCenter.Size = new Size(10, 10);
+            pictureBox1.Visible = false;
+            pictureBox1.Size = new Size(10, 10);
+            pictureBox2.Visible = false;
+            pictureBox2.Size = new Size(10, 10);
+            // reduce extension if currently extended
+            this.Height = this.Height - currentExtension;
+            currentExtension = 0;
 
+            // pull prompt contents
             this.promptTag = input.tag;
             this.promptCategory = input.category;
             this.boldPrompt = input.boldPrompt;
+            this.picture1 = input.picture1;
+            this.picture2 = input.picture2;
             promptTypeLabel.Text = input.creativityType + " Thinking";
             boldPromptBox.Text = input.boldPrompt;
 
@@ -54,31 +69,61 @@ namespace CreativityPractice
                 uploadPictureLabel.Visible = true;
             }
 
+            // if one picture, add and center it
+            if (!picture1.Trim().Equals("") && picture2.Trim().Equals(""))
+            {
+                pictureBoxCenter.Visible = true;
+                Bitmap image = new Bitmap(this.picture1);
+                List<int> scaling = findPictureScale(this.picture1);
+                image = new Bitmap(image, new Size(scaling[0], scaling[1]));
+                pictureBoxCenter.Image = image;
+                pictureBoxCenter.Size = pictureBoxCenter.Image.Size;
+                this.Height = this.Height + scaling[1];
+                currentExtension = currentExtension + scaling[1];
+            }
+            // if two pictures, place them side by side
+            else if (!picture1.Trim().Equals("") && !picture2.Trim().Equals(""))
+            {
+                pictureBox1.Visible = true; pictureBox2.Visible = true; 
+
+                Bitmap image1 = new Bitmap(picture1);
+                List<int> scaling1 = findPictureScale(picture1);
+                image1 = new Bitmap(image1, new Size(scaling1[0], scaling1[1]));
+                pictureBox1.Image = image1;
+                pictureBox1.Size = pictureBox1.Image.Size;
+
+                Bitmap image2 = new Bitmap(picture2);
+                List<int> scaling2 = findPictureScale(picture2);
+                image2 = new Bitmap(image2, new Size(scaling2[0], scaling2[1]));
+                pictureBox2.Image = image2;
+                pictureBox2.Size = pictureBox2.Image.Size;
+
+                // see which one is taller and resize form to fit
+                this.Height = this.Height + scaling1[1];
+                currentExtension = currentExtension + scaling1[1];
+            }
             // if prompt is big, reduce font size
             if (boldPromptBox.Text.Length > 200) { boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 11); }
             if (boldPromptBox.Text.Length > 300) { boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 9); }
-
-            //// reduce extension if currently extended, and reset font size
-            //this.Height = this.Height - currentExtension;
-            //currentExtension = 0;            
-            //// if prompt is too long, start extending length of prompt box
-            //if (boldPromptBox.Text.Length > 350) 
-            //{ 
-            //    boldPromptBox.Height = boldPromptBox.Height + 50;
-            //    this.Height = this.Height + 50;
-            //    currentExtension += 50;
-            //}
-            //if (boldPromptBox.Text.Length > 550)
-            //{
-            //    boldPromptBox.Height = boldPromptBox.Height + 50;
-            //    this.Height = this.Height + 50;
-            //    currentExtension += 50;
-            //}
 
             greyPromptBox.Text = input.greyPrompt;
             timeLabel.Text = input.suggestedTime + ":00";
             richTextBox1.Visible = true;
             timer1.Start();
+        }
+
+        List<int> findPictureScale(string fileName)
+        {
+            List<int> result = new List<int>();
+            Bitmap image = new Bitmap(fileName);
+            float width = Constants.maxPictureWidth;
+            float height = Constants.maxPictureHeight;
+            float scale = Math.Min(width / image.Width, height / image.Height);
+            int scaleWidth = (int)(image.Width * scale);
+            int scaleHeight = (int)(image.Height * scale);
+            result.Add(scaleWidth);
+            result.Add(scaleHeight);
+            return result;
         }
 
         private void submitButton_Click(object sender, EventArgs e)
@@ -461,6 +506,18 @@ namespace CreativityPractice
                 fileToUpload = fileName;
             }
 
+        }
+
+        private void BasicTextPromptForm_Resize(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void richTextBox1_Resize(object sender, EventArgs e)
+        {
+            //int added = richTextBox1.Height - richTextBox1.PreferredHeight;
+            //this.Height = this.Height + added;
+            //this.currentExtension = currentExtension + added;
         }
     }
 }

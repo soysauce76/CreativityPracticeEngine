@@ -18,6 +18,9 @@ namespace CreativityPractice
         public static string initialPictureUploadDirectory = "C:/Users/Owner/Pictures";
         public static string generalErrorString = "ERROR";
         public static string[] categories = { "Art", "Writing", "Poetry", "Music", "Engineering" };
+
+        public static int maxPictureHeight = 200;
+        public static int maxPictureWidth = 200;
     }
 
     // program-wide functions defined here

@@ -40,7 +40,7 @@ namespace CreativityPractice
         public BasicTextPrompt(List<string> pictures, string nametag, string newCategory, string newCreativityType, int newTime, string newBoldPrompt, string newGreyPrompt)
         {
             useUploadPicture = true;  // TEMPORARY
-            ERROR = false; 
+            ERROR = false;
             //// initialize picture boxes if necessary
             //if (pictures > 0) { picture1 = new System.Windows.Forms.PictureBox(); }
             //if (pictures > 1) { picture2 = new System.Windows.Forms.PictureBox(); }
@@ -75,6 +75,7 @@ namespace CreativityPractice
             string pic2;
 
             string[] promptLines = System.Text.RegularExpressions.Regex.Split(promptString, @"\r?\n|\r");
+            List<string> pics = new List<string>();
 
             // parse the text file and populate the new BasicTextPrompt instance
             Console.WriteLine("Trying to parse text file!");
@@ -84,25 +85,27 @@ namespace CreativityPractice
                 string[] tokens = line.Split(':');
                 if (tokens.Length < 2) { continue; }
                 Console.WriteLine("token[0] = '" + tokens[0] + "' and token[1] = '" + tokens[1] + "'");
-                if (tokens[0].Equals("tag")) { nametag = tokens[1].Trim(); }
-                if (tokens[0].Equals("creativityType")) { thinking = tokens[1].Trim(); }
+                if (tokens[0].Equals("tag")) { nametag = line.Substring(line.IndexOf(':') + 2); }
+                if (tokens[0].Equals("creativityType")) { thinking = line.Substring(line.IndexOf(':') + 2); }
                 if (tokens[0].Equals("time")) { tim = Convert.ToInt32(tokens[1].Trim()); }
-                if (tokens[0].Equals("picture1")) { pic1 = tokens[1].Trim(); }
-                if (tokens[0].Equals("picture2")) { pic2 = tokens[1].Trim(); }
+                if (tokens[0].Equals("picture1")) { pic1 = line.Substring(line.IndexOf(':') + 2); 
+                                                    pics.Add(pic1); }
+                if (tokens[0].Equals("picture2")) { pic2 = line.Substring(line.IndexOf(':') + 2); 
+                                                    pics.Add(pic2); }
                 if (tokens[0].Equals("pictureResponse")) { }
                 if (tokens[0].Equals("boldPrompt")) { bold = line.Substring(line.IndexOf(':') + 2); }
                 if (tokens[0].Equals("grayPrompt")) { gray = line.Substring(line.IndexOf(':') + 2); }
             }
 
             // generate the new prompt
-            newPrompt = new BasicTextPrompt(new List<string>(), nametag, category, thinking, tim, bold, gray);
+            newPrompt = new BasicTextPrompt(pics, nametag, category, thinking, tim, bold, gray);
             return newPrompt;
 
         }
 
 
         // write out a new prompt
-        public int writeOut() 
+        public int writeOut()
         {
             int success = 0;
 
@@ -153,7 +156,7 @@ namespace CreativityPractice
                     System.Windows.Forms.MessageBox.Show("Error appending prompt to file: exception: " + e);
                     return -1;
                 }
-            }	
+            }
 
             return success;
         }

@@ -20,7 +20,8 @@ namespace CreativityPractice
         public static string[] categories = { "Art", "Writing", "Poetry", "Music", "Engineering" };
 
         public static int maxPictureHeight = 200;
-        public static int maxPictureWidth = 200;
+        public static int maxPictureWidth = 250;
+        public static int widthOfPromptForm = 622;
     }
 
     // program-wide functions defined here

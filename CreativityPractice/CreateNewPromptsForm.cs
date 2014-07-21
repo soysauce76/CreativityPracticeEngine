@@ -15,6 +15,7 @@ namespace CreativityPractice
 
         string uploadFile1;
         string uploadFile2;
+        private static string noPictureText = "No Picture";
 
         public CreateNewPromptsForm()
         {
@@ -67,17 +68,22 @@ namespace CreativityPractice
 
             // pull included pictures
             List<string> pics = new List<string>();
-            if (!pictureLabel1.Text.Trim().Equals("No Picture"))
+            if (!pictureLabel1.Text.Trim().Equals(noPictureText))
             {
-                pics.Add(pictureLabel1.Text.Trim());
+                pics.Add(uploadFile1);
             }
             if (!pictureLabel2.Text.Trim().Equals(""))
             {
-                pics.Add(pictureLabel2.Text.Trim());
+                pics.Add(uploadFile2);
             }
 
             BasicTextPrompt newPrompt = new BasicTextPrompt(pics, promptName, category, creativityType, tim, boldPrompt, grayPrompt);
             newPrompt.writeOut();
+
+            // For convenience of rapidly creating similar prompts, clear pictures but leave all text
+            uploadFile1 = ""; uploadFile2 = "";
+            pictureLabel1.Text = noPictureText;
+            pictureLabel2.Text = "";
         }
 
         // check that information has been entered correctly in the form
@@ -144,6 +150,18 @@ namespace CreativityPractice
                 success = -1;
             }
 
+            // make sure upload files exist
+            if (uploadFile1.Length > 0 && !System.IO.File.Exists(uploadFile1))
+            {
+                errorString = errorString + "- File " + uploadFile1 + " does not exist";
+                success = -1;
+            }
+            if (uploadFile2.Length > 0 && !System.IO.File.Exists(uploadFile2))
+            {
+                errorString = errorString + "- File " + uploadFile2 + " does not exist";
+                success = -1;
+            }
+
             // show all errors at once
             if (success != 0)
             {
@@ -184,7 +202,7 @@ namespace CreativityPractice
                     return;
                 }
                 // save filename and display which file was selected on the form in gray text
-                if (pictureLabel1.Text.Trim().Equals("No Picture"))
+                if (pictureLabel1.Text.Trim().Equals(noPictureText))
                 {
                     uploadFile1 = fileName;
                     pictureLabel1.Text = System.IO.Path.GetFileName(fileName);
@@ -204,13 +222,13 @@ namespace CreativityPractice
         // allow user to chose to delete uploaded picture by clicking on it
         private void pictureLabel1_Click(object sender, EventArgs e)
         {
-            if (pictureLabel1.Text.Trim().Equals("No Picture")) { return; }
+            if (pictureLabel1.Text.Trim().Equals(noPictureText)) { return; }
             if (MessageBox.Show("Remove picture?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 uploadFile1 = "";       
                 if (pictureLabel2.Text.Equals(""))
                 {
-                    pictureLabel1.Text = "No Picture";
+                    pictureLabel1.Text = noPictureText;
                     uploadFile1 = "";
                 }
                 else
@@ -259,7 +277,7 @@ namespace CreativityPractice
         }
         private void pictureLabel1_MouseEnter(object sender, EventArgs e)
         {
-            if (!pictureLabel1.Text.Trim().Equals("No Picture"))
+            if (!pictureLabel1.Text.Trim().Equals(noPictureText))
             {
                 pictureLabel1.ForeColor = System.Drawing.Color.Cyan;
             }

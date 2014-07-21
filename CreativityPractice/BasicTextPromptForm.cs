@@ -63,23 +63,31 @@ namespace CreativityPractice
             this.picture2 = input.picture2;
             promptTypeLabel.Text = input.creativityType + " Thinking";
             boldPromptBox.Text = input.boldPrompt;
+            greyPromptBox.Text = input.greyPrompt;
+            timeLabel.Text = input.suggestedTime + ":00";
+            richTextBox1.Visible = true;
 
-            if (input.useUploadPicture == true)
-            {
+            //if (input.useUploadPicture == true)
+            //{
                 uploadPictureLabel.Visible = true;
-            }
+            //}
 
             // if one picture, add and center it
             if (!picture1.Trim().Equals("") && picture2.Trim().Equals(""))
             {
+                // load and scale picture
                 pictureBoxCenter.Visible = true;
                 Bitmap image = new Bitmap(this.picture1);
                 List<int> scaling = findPictureScale(this.picture1);
                 image = new Bitmap(image, new Size(scaling[0], scaling[1]));
                 pictureBoxCenter.Image = image;
                 pictureBoxCenter.Size = pictureBoxCenter.Image.Size;
+                // resize form to fit
                 this.Height = this.Height + scaling[1];
                 currentExtension = currentExtension + scaling[1];
+                // center picture
+                centerPicture(pictureBoxCenter, pictureBoxCenter.Width, 0.50);
+                //pictureBoxCenter.Location = new Point(newXLoc, pictureBoxCenter.Location.Y);
             }
             // if two pictures, place them side by side
             else if (!picture1.Trim().Equals("") && !picture2.Trim().Equals(""))
@@ -91,27 +99,51 @@ namespace CreativityPractice
                 image1 = new Bitmap(image1, new Size(scaling1[0], scaling1[1]));
                 pictureBox1.Image = image1;
                 pictureBox1.Size = pictureBox1.Image.Size;
+                // center picture
+                centerPicture(pictureBox1, pictureBox1.Width, 0.27);
+                //pictureBox1.Location = new Point(newXLoc, pictureBox1.Location.Y);
 
                 Bitmap image2 = new Bitmap(picture2);
                 List<int> scaling2 = findPictureScale(picture2);
                 image2 = new Bitmap(image2, new Size(scaling2[0], scaling2[1]));
                 pictureBox2.Image = image2;
                 pictureBox2.Size = pictureBox2.Image.Size;
+                // center picture
+                centerPicture(pictureBox2, pictureBox2.Width, 0.73);
+                //pictureBox2.Location = new Point(newXLoc, pictureBox2.Location.Y);
 
                 // see which one is taller and resize form to fit
-                this.Height = this.Height + scaling1[1];
-                currentExtension = currentExtension + scaling1[1];
+                int tallest = 0;
+                if (pictureBox1.Height > pictureBox2.Height)
+                {
+                    tallest = scaling1[1];
+                }
+                else
+                {
+                    tallest = scaling2[1];
+                }
+                this.Height = this.Height + tallest;
+                currentExtension = currentExtension + tallest;
             }
             // if prompt is big, reduce font size
             if (boldPromptBox.Text.Length > 200) { boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 11); }
             if (boldPromptBox.Text.Length > 300) { boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 9); }
 
-            greyPromptBox.Text = input.greyPrompt;
-            timeLabel.Text = input.suggestedTime + ":00";
-            richTextBox1.Visible = true;
+            // center form on screen
+            this.CenterToScreen(); 
+
+            // restart timer
             timer1.Start();
         }
 
+        void centerPicture(System.Windows.Forms.PictureBox picBox, int widthOfPicture, double percentageOfForm)
+        {
+            int middleOfForm = Convert.ToInt32(Constants.widthOfPromptForm * percentageOfForm);
+            int offset = widthOfPicture / 2;
+            int xPosition = middleOfForm - offset;
+            picBox.Location = new Point(xPosition, picBox.Location.Y);
+            return;
+        }
         List<int> findPictureScale(string fileName)
         {
             List<int> result = new List<int>();

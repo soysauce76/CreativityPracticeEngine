@@ -49,12 +49,14 @@
             this.includePicturesButton = new System.Windows.Forms.Button();
             this.pictureLabel1 = new System.Windows.Forms.Label();
             this.pictureLabel2 = new System.Windows.Forms.Label();
+            this.includeMusicButton = new System.Windows.Forms.Button();
+            this.uploadMusicLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // createButton
             // 
             this.createButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createButton.Location = new System.Drawing.Point(313, 368);
+            this.createButton.Location = new System.Drawing.Point(313, 411);
             this.createButton.Name = "createButton";
             this.createButton.Size = new System.Drawing.Size(109, 33);
             this.createButton.TabIndex = 0;
@@ -162,14 +164,14 @@
             // 
             this.ideasLabel.AutoSize = true;
             this.ideasLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ideasLabel.Location = new System.Drawing.Point(540, 379);
+            this.ideasLabel.Location = new System.Drawing.Point(550, 422);
             this.ideasLabel.Name = "ideasLabel";
             this.ideasLabel.Size = new System.Drawing.Size(173, 15);
             this.ideasLabel.TabIndex = 10;
             this.ideasLabel.Text = "Need some ideas? Click Here!";
             this.ideasLabel.Click += new System.EventHandler(this.ideasLabel_Click);
-            this.ideasLabel.MouseEnter += new System.EventHandler(this.ideasLabel_MouseEnter);
-            this.ideasLabel.MouseLeave += new System.EventHandler(this.ideasLabel_MouseLeave);
+            this.ideasLabel.MouseEnter += new System.EventHandler(this.turnTextBlue);
+            this.ideasLabel.MouseLeave += new System.EventHandler(this.turnTextBlack);
             // 
             // label5
             // 
@@ -252,14 +254,14 @@
             // 
             this.pictureLabel1.AutoSize = true;
             this.pictureLabel1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pictureLabel1.Location = new System.Drawing.Point(288, 348);
+            this.pictureLabel1.Location = new System.Drawing.Point(294, 352);
             this.pictureLabel1.Name = "pictureLabel1";
             this.pictureLabel1.Size = new System.Drawing.Size(57, 13);
             this.pictureLabel1.TabIndex = 19;
             this.pictureLabel1.Text = "No Picture";
             this.pictureLabel1.Click += new System.EventHandler(this.pictureLabel1_Click);
-            this.pictureLabel1.MouseEnter += new System.EventHandler(this.pictureLabel1_MouseEnter);
-            this.pictureLabel1.MouseLeave += new System.EventHandler(this.pictureLabel1_MouseLeave);
+            this.pictureLabel1.MouseEnter += new System.EventHandler(this.turnTextBlue);
+            this.pictureLabel1.MouseLeave += new System.EventHandler(this.turnTextGray);
             // 
             // pictureLabel2
             // 
@@ -270,15 +272,40 @@
             this.pictureLabel2.Size = new System.Drawing.Size(0, 13);
             this.pictureLabel2.TabIndex = 20;
             this.pictureLabel2.Click += new System.EventHandler(this.pictureLabel2_Click);
-            this.pictureLabel2.MouseEnter += new System.EventHandler(this.pictureLabel2_MouseEnter);
-            this.pictureLabel2.MouseLeave += new System.EventHandler(this.pictureLabel2_MouseLeave);
+            this.pictureLabel2.MouseEnter += new System.EventHandler(this.turnTextBlue);
+            this.pictureLabel2.MouseLeave += new System.EventHandler(this.turnTextGray);
+            // 
+            // includeMusicButton
+            // 
+            this.includeMusicButton.Location = new System.Drawing.Point(154, 371);
+            this.includeMusicButton.Name = "includeMusicButton";
+            this.includeMusicButton.Size = new System.Drawing.Size(125, 23);
+            this.includeMusicButton.TabIndex = 21;
+            this.includeMusicButton.Text = "Include Music";
+            this.includeMusicButton.UseVisualStyleBackColor = true;
+            this.includeMusicButton.Click += new System.EventHandler(this.includeMusicButton_Click);
+            // 
+            // uploadMusicLabel
+            // 
+            this.uploadMusicLabel.AutoSize = true;
+            this.uploadMusicLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.uploadMusicLabel.Location = new System.Drawing.Point(294, 376);
+            this.uploadMusicLabel.Name = "uploadMusicLabel";
+            this.uploadMusicLabel.Size = new System.Drawing.Size(52, 13);
+            this.uploadMusicLabel.TabIndex = 22;
+            this.uploadMusicLabel.Text = "No Music";
+            this.uploadMusicLabel.Click += new System.EventHandler(this.uploadMusicLabel_Click);
+            this.uploadMusicLabel.MouseEnter += new System.EventHandler(this.turnTextBlue);
+            this.uploadMusicLabel.MouseLeave += new System.EventHandler(this.turnTextGray);
             // 
             // CreateNewPromptsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(735, 413);
+            this.ClientSize = new System.Drawing.Size(735, 456);
+            this.Controls.Add(this.uploadMusicLabel);
+            this.Controls.Add(this.includeMusicButton);
             this.Controls.Add(this.pictureLabel2);
             this.Controls.Add(this.pictureLabel1);
             this.Controls.Add(this.includePicturesButton);
@@ -330,5 +357,7 @@
         private System.Windows.Forms.Button includePicturesButton;
         private System.Windows.Forms.Label pictureLabel1;
         private System.Windows.Forms.Label pictureLabel2;
+        private System.Windows.Forms.Button includeMusicButton;
+        private System.Windows.Forms.Label uploadMusicLabel;
     }
 }

@@ -32,6 +32,8 @@ namespace CreativityPractice
             categories = new List<string>();
             richTextBox1.Visible = false;
             currentExtension = 0;
+            axWindowsMediaPlayer1.settings.autoStart = false;
+
         }
 
         public void InitializePrompt(BasicTextPrompt input) 
@@ -51,6 +53,8 @@ namespace CreativityPractice
             pictureBox1.Size = new Size(10, 10);
             pictureBox2.Visible = false;
             pictureBox2.Size = new Size(10, 10);
+            axWindowsMediaPlayer1.Visible = false;
+            axWindowsMediaPlayer1.settings.mute = true;
             // reduce extension if currently extended
             this.Height = this.Height - currentExtension;
             currentExtension = 0;
@@ -125,7 +129,15 @@ namespace CreativityPractice
                 this.Height = this.Height + tallest;
                 currentExtension = currentExtension + tallest;
             }
-            // if prompt is big, reduce font size
+
+            // add music player if necessary
+            if (!input.music.Equals(""))
+            {
+                axWindowsMediaPlayer1.Visible = true;
+                axWindowsMediaPlayer1.URL = input.music;
+                axWindowsMediaPlayer1.settings.mute = false;
+            }
+             // if prompt is big, reduce font size
             if (boldPromptBox.Text.Length > 200) { boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 11); }
             if (boldPromptBox.Text.Length > 300) { boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 9); }
 
@@ -134,6 +146,7 @@ namespace CreativityPractice
 
             // restart timer
             timer1.Start();
+            //axWindowsMediaPlayer1.Ctlcontrols.pause();
         }
 
         void centerPicture(System.Windows.Forms.PictureBox picBox, int widthOfPicture, double percentageOfForm)
@@ -368,6 +381,7 @@ namespace CreativityPractice
         {
             uploadPictureLabel.ForeColor = System.Drawing.Color.Cyan;
         }
+
         private void uploadPictureLabel_MouseLeave(object sender, EventArgs e)
         {
             uploadPictureLabel.ForeColor = System.Drawing.Color.Black;

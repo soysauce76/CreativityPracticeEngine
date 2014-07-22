@@ -9,3 +9,8 @@ c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\Creativi
 c:\users\owner\documents\visual studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.pdb
 C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.BasicTextPromptForm.resources
 C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.CreateNewPromptsForm.resources
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\Interop.WMPLib.dll
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\AxInterop.WMPLib.dll
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Debug\CreativityPractice.csproj.ResolveComReference.cache
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Debug\Interop.WMPLib.dll
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Debug\AxInterop.WMPLib.dll

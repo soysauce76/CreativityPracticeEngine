@@ -15,6 +15,7 @@ namespace CreativityPractice
         public bool useUploadPicture;
         public string picture1;
         public string picture2;
+        public string music;
 
         public string tag;
         public string category;
@@ -37,7 +38,7 @@ namespace CreativityPractice
             useUploadPicture = true;
         }
 
-        public BasicTextPrompt(List<string> pictures, string nametag, string newCategory, string newCreativityType, int newTime, string newBoldPrompt, string newGreyPrompt)
+        public BasicTextPrompt(List<string> pictures, string musicFile, string nametag, string newCategory, string newCreativityType, int newTime, string newBoldPrompt, string newGreyPrompt)
         {
             useUploadPicture = true;  // TEMPORARY
             ERROR = false;
@@ -60,6 +61,7 @@ namespace CreativityPractice
             {
                 picture2 = pictures[1];
             }
+            this.music = musicFile;
         }
 
         public static BasicTextPrompt parsePrompt(string promptString, string category)
@@ -73,6 +75,7 @@ namespace CreativityPractice
             string gray = "";
             string pic1;
             string pic2;
+            string mus = "";
 
             string[] promptLines = System.Text.RegularExpressions.Regex.Split(promptString, @"\r?\n|\r");
             List<string> pics = new List<string>();
@@ -92,13 +95,14 @@ namespace CreativityPractice
                                                     pics.Add(pic1); }
                 if (tokens[0].Equals("picture2")) { pic2 = line.Substring(line.IndexOf(':') + 2); 
                                                     pics.Add(pic2); }
+                if (tokens[0].Equals("music")) { mus = line.Substring(line.IndexOf(':') + 2); }
                 if (tokens[0].Equals("pictureResponse")) { }
                 if (tokens[0].Equals("boldPrompt")) { bold = line.Substring(line.IndexOf(':') + 2); }
                 if (tokens[0].Equals("grayPrompt")) { gray = line.Substring(line.IndexOf(':') + 2); }
             }
 
             // generate the new prompt
-            newPrompt = new BasicTextPrompt(pics, nametag, category, thinking, tim, bold, gray);
+            newPrompt = new BasicTextPrompt(pics, mus, nametag, category, thinking, tim, bold, gray);
             return newPrompt;
 
         }
@@ -138,6 +142,7 @@ namespace CreativityPractice
                             "time: " + suggestedTime + System.Environment.NewLine +
                             "picture1: " + picture1 + System.Environment.NewLine +
                             "picture2: " + picture2 + System.Environment.NewLine +
+                            "music: " + music + System.Environment.NewLine +
                             "pictureResponse: " + useUploadPicture + System.Environment.NewLine +
                             "boldPrompt: " + boldPrompt + System.Environment.NewLine +
                             "grayPrompt: " + greyPrompt + System.Environment.NewLine + System.Environment.NewLine +

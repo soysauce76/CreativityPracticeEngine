@@ -15,6 +15,7 @@ namespace CreativityPractice
 
         string uploadFile1;
         string uploadFile2;
+        string uploadFileMusic;
         private static string noPictureText = "No Picture";
 
         public CreateNewPromptsForm()
@@ -22,6 +23,7 @@ namespace CreativityPractice
             InitializeComponent();
             uploadFile1 = "";
             uploadFile2 = "";
+            uploadFileMusic = "";
 
             // load available categories
             categoryListBox.Items.AddRange(Constants.categories);
@@ -77,13 +79,14 @@ namespace CreativityPractice
                 pics.Add(uploadFile2);
             }
 
-            BasicTextPrompt newPrompt = new BasicTextPrompt(pics, promptName, category, creativityType, tim, boldPrompt, grayPrompt);
+            BasicTextPrompt newPrompt = new BasicTextPrompt(pics, uploadFileMusic, promptName, category, creativityType, tim, boldPrompt, grayPrompt);
             newPrompt.writeOut();
 
             // For convenience of rapidly creating similar prompts, clear pictures but leave all text
             uploadFile1 = ""; uploadFile2 = "";
             pictureLabel1.Text = noPictureText;
             pictureLabel2.Text = "";
+            uploadMusicLabel.Text = "";
         }
 
         // check that information has been entered correctly in the form
@@ -161,6 +164,11 @@ namespace CreativityPractice
                 errorString = errorString + "- File " + uploadFile2 + " does not exist";
                 success = -1;
             }
+            if (uploadFileMusic.Length > 0 && !System.IO.File.Exists(uploadFileMusic))
+            {
+                errorString = errorString + "- File " + uploadFileMusic + " does not exist";
+                success = -1;
+            }
 
             // show all errors at once
             if (success != 0)
@@ -181,42 +189,83 @@ namespace CreativityPractice
                 + "Please upload final picture below");
         }
 
-        // allow user to select a picture to use for the prompt
-        private void includePicturesButton_Click(object sender, EventArgs e)
+        private string getUserSelectedFile(string filter)
         {
             string fileName = "";
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             openFileDialog1.InitialDirectory = Constants.initialPictureUploadDirectory;
-            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog1.Filter = filter;
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
 
             // have user select a file to upload
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK )
             {
                 fileName = openFileDialog1.FileName;
                 if (!System.IO.File.Exists(fileName))
                 {
                     MessageBox.Show("File " + fileName + " does not exist");
-                    return;
-                }
-                // save filename and display which file was selected on the form in gray text
-                if (pictureLabel1.Text.Trim().Equals(noPictureText))
-                {
-                    uploadFile1 = fileName;
-                    pictureLabel1.Text = System.IO.Path.GetFileName(fileName);
-                }
-                else if (pictureLabel2.Text.Trim().Equals(""))
-                {
-                    uploadFile2 = fileName;
-                    pictureLabel2.Text = System.IO.Path.GetFileName(fileName);
-                }
-                else {
-                    MessageBox.Show("Can only upload 2 files! click on a file name to delete");
+                    return Constants.generalErrorString;
                 }
             }
+            else if (result == DialogResult.Cancel)
+            {
+                return "Canceled";
+            }
+            return fileName;
+        }
 
+        // allow user to select a picture to use for the prompt
+        private void includePicturesButton_Click(object sender, EventArgs e)
+        {
+
+            string fileName = getUserSelectedFile("Image Files (*.bmp, *.jpg, *.png, *.jpeg, *.gif)|*.bmp;*.jpg;*.png,*.jpeg,*.gif");
+            if (fileName.Equals(Constants.generalErrorString))
+            {
+                return;
+            }
+            else if (fileName.Equals("Canceled"))
+            {
+                return;
+            }
+            // save filename and display which file was selected on the form in gray text
+            if (pictureLabel1.Text.Trim().Equals(noPictureText))
+            {
+                uploadFile1 = fileName;
+                pictureLabel1.Text = System.IO.Path.GetFileName(fileName);
+            }
+            else if (pictureLabel2.Text.Trim().Equals(""))
+            {
+                uploadFile2 = fileName;
+                pictureLabel2.Text = System.IO.Path.GetFileName(fileName);
+            }
+            else {
+                MessageBox.Show("Can only upload 2 files! click on a file name to delete");
+            }
+
+        }
+
+        // allow user to select an mp3 to use for the prompt
+        private void includeMusicButton_Click(object sender, EventArgs e)
+        {
+            string file = getUserSelectedFile("Music Files (*.mp3)|*.bmp;*.mp3");
+            if (file.Equals(Constants.generalErrorString))
+            {
+                return;
+            }
+            else if (file.Equals("Canceled"))
+            {
+                return;
+            }
+            if (!uploadFileMusic.Trim().Equals(""))
+            {
+                MessageBox.Show("Can only upload one song per prompt!\n You may remove the current song by clicking on it");
+                return;
+            }
+            uploadFileMusic = file;
+            uploadMusicLabel.Text = System.IO.Path.GetFileName(file);
         }
 
         // allow user to chose to delete uploaded picture by clicking on it
@@ -256,6 +305,18 @@ namespace CreativityPractice
                 return;
             }
         }
+        private void uploadMusicLabel_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Remove file?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                uploadMusicLabel.Text = "";
+                uploadFileMusic = "";
+            }
+            else
+            {
+                return;
+            }
+        }
 
         // remove "<enter text>" in prompt box when user clicks in first time
         private void boldPromptBox_Click(object sender, EventArgs e)
@@ -267,32 +328,46 @@ namespace CreativityPractice
         }
 
         // making clickable labels turn blue when you mouse over them. 
-        private void ideasLabel_MouseEnter(object sender, EventArgs e)
+        private void turnTextBlue(object sender, EventArgs e)
         {
-            ideasLabel.ForeColor = System.Drawing.Color.Cyan;
+            if (sender.Equals(pictureLabel1))
+            {
+                pictureLabel1.ForeColor = System.Drawing.Color.Cyan;       
+            }
+            else if (sender.Equals(pictureLabel2))
+            {
+                pictureLabel2.ForeColor = System.Drawing.Color.Cyan;
+            }
+            else if (sender.Equals(ideasLabel))
+            {
+                ideasLabel.ForeColor = System.Drawing.Color.Cyan;
+            }
+            else if (sender.Equals(uploadMusicLabel)) 
+            {
+                uploadMusicLabel.ForeColor = System.Drawing.Color.Cyan;
+            }
         }
-        private void ideasLabel_MouseLeave(object sender, EventArgs e)
+        private void turnTextGray(object sender, EventArgs e)
+        {
+            if (sender.Equals(pictureLabel1))
+            {
+                pictureLabel1.ForeColor = System.Drawing.Color.Gray;
+            }
+            else if (sender.Equals(pictureLabel2))
+            {
+                pictureLabel2.ForeColor = System.Drawing.Color.Gray;
+            }
+            else if (sender.Equals(uploadMusicLabel))
+            {
+                uploadMusicLabel.ForeColor = System.Drawing.Color.Gray;
+            }
+        }
+        private void turnTextBlack(object sender, EventArgs e)
         {
             ideasLabel.ForeColor = System.Drawing.Color.Black;
         }
-        private void pictureLabel1_MouseEnter(object sender, EventArgs e)
-        {
-            if (!pictureLabel1.Text.Trim().Equals(noPictureText))
-            {
-                pictureLabel1.ForeColor = System.Drawing.Color.Cyan;
-            }
-        }
-        private void pictureLabel1_MouseLeave(object sender, EventArgs e)
-        {
-            pictureLabel1.ForeColor = System.Drawing.Color.Gray;
-        }
-        private void pictureLabel2_MouseEnter(object sender, EventArgs e)
-        {
-             pictureLabel2.ForeColor = System.Drawing.Color.Cyan;       
-        }
-        private void pictureLabel2_MouseLeave(object sender, EventArgs e)
-        {
-             pictureLabel2.ForeColor = System.Drawing.Color.Gray;       
-        }
+
+
+
     }
 }

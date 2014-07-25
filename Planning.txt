@@ -2,8 +2,6 @@ To Add:
 
 - expand screen with commonly used prompt bases
 
-- ability to open a picture file separately by double clicking (in case you need to see the prompt picture bigger)
-
 - ability to upload recorded music files
 
 - build an installer (that defines the prompt locations etc)

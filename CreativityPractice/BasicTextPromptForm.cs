@@ -19,7 +19,6 @@ namespace CreativityPractice
         public List<string> categories;
         private int currentExtension;
         public string boldPrompt;
-        public int promptNumber;
         public string promptCategory;
         public string promptTag;
         public string fileToUpload;
@@ -32,6 +31,10 @@ namespace CreativityPractice
             categories = new List<string>();
             richTextBox1.Visible = false;
             currentExtension = 0;
+            picture1 = ""; picture2 = ""; fileToUpload = "";
+            promptTag = ""; promptCategory = ""; boldPrompt = ""; 
+
+            // prevent media player from automatically playing music when it is initialized
             axWindowsMediaPlayer1.settings.autoStart = false;
 
         }
@@ -41,7 +44,7 @@ namespace CreativityPractice
             timer1.Stop();
 
             // reset basic format
-            boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 12, FontStyle.Bold);
+            boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 11, FontStyle.Bold);
             uploadPictureLabel.Visible = false;
             uploadedFileLabel.Text = "";
             fileToUpload = "";
@@ -116,7 +119,7 @@ namespace CreativityPractice
                 centerPicture(pictureBox2, pictureBox2.Width, 0.73);
                 //pictureBox2.Location = new Point(newXLoc, pictureBox2.Location.Y);
 
-                // see which one is taller and resize form to fit
+                // see which picture is taller and resize form to fit
                 int tallest = 0;
                 if (pictureBox1.Height > pictureBox2.Height)
                 {
@@ -146,9 +149,9 @@ namespace CreativityPractice
 
             // restart timer
             timer1.Start();
-            //axWindowsMediaPlayer1.Ctlcontrols.pause();
         }
 
+        // move picture to desired percentage of form horizontally (e.g. 50% would center on page) 
         void centerPicture(System.Windows.Forms.PictureBox picBox, int widthOfPicture, double percentageOfForm)
         {
             int middleOfForm = Convert.ToInt32(Constants.widthOfPromptForm * percentageOfForm);
@@ -157,6 +160,8 @@ namespace CreativityPractice
             picBox.Location = new Point(xPosition, picBox.Location.Y);
             return;
         }
+
+        // scale picture to hardcoded maximum size for display
         List<int> findPictureScale(string fileName)
         {
             List<int> result = new List<int>();
@@ -171,22 +176,35 @@ namespace CreativityPractice
             return result;
         }
 
+        // user submits their work
         private void submitButton_Click(object sender, EventArgs e)
         {
-            // save text results
-            string text = this.richTextBox1.Rtf;
+            int totalSuccess = -1;
             if (!richTextBox1.Text.Equals("<enter text>") && !richTextBox1.Text.Trim().Equals(""))
             {
-                Functions.saveTextPromptResults(this.promptTag, this.boldPrompt, text);
+                // if there was both a text and picture response, have text refer to associated picture
+                if (this.fileToUpload.Length > 0)
+                {
+                    string picFile = Functions.getResultFileName(this.promptTag, System.IO.Path.GetExtension(fileToUpload));
+                    richTextBox1.AppendText(Environment.NewLine + Environment.NewLine + "*Accompanying picture : " + System.IO.Path.GetFileName(picFile));
+                }
+                string text = this.richTextBox1.Rtf;    
+                totalSuccess = Functions.saveTextPromptResults(this.promptTag, this.boldPrompt, text);
             }
             this.richTextBox1.Clear();
 
             // save picture result
             if (fileToUpload.Length > 0)
             {
-                Functions.savePictureResult(this.promptCategory, this.fileToUpload);
+                totalSuccess = Functions.savePictureResult(this.promptTag, this.fileToUpload);
+
+            }
+            if (totalSuccess == 0)
+            {
+                MessageBox.Show("Submission successful!");
             }
 
+            // now generate a new prompt
             generateNewPrompt();
         }
 
@@ -303,7 +321,6 @@ namespace CreativityPractice
         {
             incrementTime(30);
         }
-
         private void minusButton_Click(object sender, EventArgs e)
         {
             decrementTime(30);
@@ -564,6 +581,34 @@ namespace CreativityPractice
             //int added = richTextBox1.Height - richTextBox1.PreferredHeight;
             //this.Height = this.Height + added;
             //this.currentExtension = currentExtension + added;
+        }
+
+        // display a picture at full size in a separate window.
+        private void showPictureBig(string path)
+        {
+            Bitmap image1 = new Bitmap(path);
+            bigPictureForm picform = new bigPictureForm();
+            picform.addPicture(image1);
+            DialogResult result = picform.ShowDialog();
+
+        }
+        // if user clicks on one of the pictures, have it show the picture big.
+        private void pictureBoxCenter_Click(object sender, EventArgs e)
+        {
+            showPictureBig(picture1);
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            showPictureBig(picture1);
+        }
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            showPictureBig(picture2);
+        }
+
+        private void BasicTextPromptForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

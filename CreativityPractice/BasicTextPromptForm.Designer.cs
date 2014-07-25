@@ -139,7 +139,7 @@
             this.submitButton.AutoSize = true;
             this.submitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(232, 380);
+            this.submitButton.Location = new System.Drawing.Point(232, 370);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(119, 41);
             this.submitButton.TabIndex = 6;
@@ -156,7 +156,7 @@
             this.skipButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.skipButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.skipButton.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.skipButton.Location = new System.Drawing.Point(493, 388);
+            this.skipButton.Location = new System.Drawing.Point(493, 378);
             this.skipButton.Name = "skipButton";
             this.skipButton.Size = new System.Drawing.Size(101, 30);
             this.skipButton.TabIndex = 7;
@@ -168,7 +168,7 @@
             // 
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(30, 216);
+            this.richTextBox1.Location = new System.Drawing.Point(30, 206);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(552, 158);
             this.richTextBox1.TabIndex = 10;
@@ -183,12 +183,12 @@
             this.boldPromptBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.boldPromptBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.boldPromptBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.boldPromptBox.Location = new System.Drawing.Point(30, 82);
+            this.boldPromptBox.Location = new System.Drawing.Point(30, 85);
             this.boldPromptBox.Multiline = true;
             this.boldPromptBox.Name = "boldPromptBox";
             this.boldPromptBox.ReadOnly = true;
             this.boldPromptBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.boldPromptBox.Size = new System.Drawing.Size(537, 84);
+            this.boldPromptBox.Size = new System.Drawing.Size(537, 71);
             this.boldPromptBox.TabIndex = 11;
             this.boldPromptBox.Text = "Bold Prompt";
             // 
@@ -199,7 +199,7 @@
             this.greyPromptBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.greyPromptBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.greyPromptBox.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.greyPromptBox.Location = new System.Drawing.Point(30, 172);
+            this.greyPromptBox.Location = new System.Drawing.Point(30, 162);
             this.greyPromptBox.Multiline = true;
             this.greyPromptBox.Name = "greyPromptBox";
             this.greyPromptBox.ReadOnly = true;
@@ -212,7 +212,7 @@
             this.uploadPictureLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.uploadPictureLabel.AutoSize = true;
             this.uploadPictureLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uploadPictureLabel.Location = new System.Drawing.Point(27, 380);
+            this.uploadPictureLabel.Location = new System.Drawing.Point(27, 370);
             this.uploadPictureLabel.Name = "uploadPictureLabel";
             this.uploadPictureLabel.Size = new System.Drawing.Size(97, 16);
             this.uploadPictureLabel.TabIndex = 13;
@@ -224,9 +224,10 @@
             // 
             // uploadedFileLabel
             // 
+            this.uploadedFileLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.uploadedFileLabel.AutoSize = true;
             this.uploadedFileLabel.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.uploadedFileLabel.Location = new System.Drawing.Point(37, 405);
+            this.uploadedFileLabel.Location = new System.Drawing.Point(40, 395);
             this.uploadedFileLabel.Name = "uploadedFileLabel";
             this.uploadedFileLabel.Size = new System.Drawing.Size(0, 13);
             this.uploadedFileLabel.TabIndex = 14;
@@ -240,6 +241,7 @@
             this.pictureBoxCenter.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxCenter.TabIndex = 15;
             this.pictureBoxCenter.TabStop = false;
+            this.pictureBoxCenter.Click += new System.EventHandler(this.pictureBoxCenter_Click);
             // 
             // pictureBox1
             // 
@@ -248,6 +250,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(72, 21);
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // pictureBox2
             // 
@@ -256,6 +259,7 @@
             this.pictureBox2.Size = new System.Drawing.Size(99, 19);
             this.pictureBox2.TabIndex = 17;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // axWindowsMediaPlayer1
             // 
@@ -272,7 +276,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(606, 433);
+            this.ClientSize = new System.Drawing.Size(606, 423);
             this.Controls.Add(this.axWindowsMediaPlayer1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
@@ -289,10 +293,11 @@
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.promptTypeLabel);
             this.Controls.Add(this.clearTimeButton);
-            this.MinimumSize = new System.Drawing.Size(622, 471);
+            this.MinimumSize = new System.Drawing.Size(622, 461);
             this.Name = "BasicTextPromptForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Creativity Practice Engine";
+            this.Load += new System.EventHandler(this.BasicTextPromptForm_Load);
             this.Resize += new System.EventHandler(this.BasicTextPromptForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCenter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

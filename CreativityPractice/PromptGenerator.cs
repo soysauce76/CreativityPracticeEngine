@@ -62,10 +62,10 @@ namespace CreativityPractice
 
             // find available prompts in prompt file
             List<string> availablePrompts = Functions.getPromptsFromFile(fullPath);
-            foreach (string prompt in availablePrompts)
-            {
-                Console.WriteLine(prompt);
-            }
+            //foreach (string prompt in availablePrompts)
+            //{
+            //    //Console.WriteLine(prompt);
+            //}
 
             // if no prompts, return error
             if (availablePrompts.Count == 0)
@@ -95,42 +95,6 @@ namespace CreativityPractice
             // return the final prompt
             return newPrompt;
         }
-
-        //private BasicTextPrompt readInPrompt(string fileName)
-        //{
-        //    BasicTextPrompt newPrompt = new BasicTextPrompt();
-
-        //    string label = "";
-        //    string thinking = "";
-        //    int tim = 0;
-        //    string bold = "";
-        //    string gray = "";
-        //    bool text = false;
-
-        //    string[] promptLines = System.Text.RegularExpressions.Regex.Split(promptString, @"\r?\n|\r");
-
-        //    // parse the text file and populate the new BasicTextPrompt instance
-        //    Console.WriteLine("Trying to parse text file!");
-        //    for (int i = 0; i < promptLines.Length; i++)
-        //    {
-        //        string line = promptLines[i];
-        //        string[] tokens = line.Split(':');
-        //        if (tokens.Length != 2) { continue; }
-        //        Console.WriteLine("token[0] = '" + tokens[0] + "' and token[1] = '" + tokens[1] + "'");
-        //        if (tokens[0].Equals("name")) { label = tokens[1].Trim(); }
-        //        if (tokens[0].Equals("creativity type")) { thinking = tokens[1].Trim(); }
-        //        if (tokens[0].Equals("time")) { tim = Convert.ToInt32(tokens[1].Trim()); }
-        //        if (tokens[0].Equals("pictures")) { }
-        //        if (tokens[0].Equals("picture response")) { }
-        //        if (tokens[0].Equals("text response")) { if (tokens[1].Trim().Equals("yes")) { text = true; } }
-        //        if (tokens[0].Equals("bold prompt")) { bold = tokens[1].Trim(); }
-        //        if (tokens[0].Equals("grey prompt")) { gray = tokens[1].Trim(); }
-        //    }
-
-        //    // generate the new prompt
-        //    newPrompt = new BasicTextPrompt(new List<string>(), label, "", thinking, tim, bold, gray);
-        //    return newPrompt;
-        //}
 
     }
 }

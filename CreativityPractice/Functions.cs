@@ -18,8 +18,9 @@ namespace CreativityPractice
         public static string initialPictureUploadDirectory = "C:/Users/Owner/Pictures";
         public static string generalErrorString = "ERROR";
         public static string[] categories = { "Art", "Writing", "Poetry", "Music", "Engineering" };
+        public static string promptDelimiter = "======================";
 
-        public static int maxPictureHeight = 200;
+        public static int maxPictureHeight = 250;
         public static int maxPictureWidth = 250;
         public static int widthOfPromptForm = 622;
     }
@@ -55,7 +56,7 @@ namespace CreativityPractice
                     recording = true;
                 }
                 // if encounter "=====" then prompt is over
-                else if (fileLines[i].Contains("======================"))
+                else if (fileLines[i].Contains(Constants.promptDelimiter))
                 //else if (fileLines[i].Trim().Length == 0 && i < fileLines.Length - 1)
                 {
                     //if (fileLines[i + 1].Contains("tag:"))
@@ -74,55 +75,17 @@ namespace CreativityPractice
             return result;
         }
 
-        //public static BasicTextPrompt parsePrompt(string promptString)
-        //{
-        //    BasicTextPrompt newPrompt = new BasicTextPrompt();
-
-        //    string label = "";
-        //    string thinking = "";
-        //    int tim = 0;
-        //    string bold = "";
-        //    string gray = "";
-        //    bool text = false;
-
-        //    string[] promptLines = System.Text.RegularExpressions.Regex.Split(promptString, @"\r?\n|\r");
-
-        //    // parse the text file and populate the new BasicTextPrompt instance
-        //    Console.WriteLine("Trying to parse text file!");
-        //    for (int i = 0; i < promptLines.Length; i++)
-        //    {
-        //        string line = promptLines[i];
-        //        string[] tokens = line.Split(':');
-        //        if (tokens.Length != 2) { continue; }
-        //        Console.WriteLine("token[0] = '" + tokens[0] + "' and token[1] = '" + tokens[1] + "'");
-        //        if (tokens[0].Equals("name")) { label = tokens[1].Trim(); }
-        //        if (tokens[0].Equals("creativity type")) { thinking = tokens[1].Trim(); }
-        //        if (tokens[0].Equals("time")) { tim = Convert.ToInt32(tokens[1].Trim()); }
-        //        if (tokens[0].Equals("pictures")) { }
-        //        if (tokens[0].Equals("picture response")) { }
-        //        if (tokens[0].Equals("text response")) { if (tokens[1].Trim().Equals("yes")) { text = true; } }
-        //        if (tokens[0].Equals("bold prompt")) { bold = tokens[1].Trim(); }
-        //        if (tokens[0].Equals("grey prompt")) { gray = tokens[1].Trim(); }
-        //    }
-
-        //    // generate the new prompt
-        //    newPrompt = new BasicTextPrompt(new List<string>(), label, "", thinking, tim, bold, gray);
-        //    return newPrompt;
-
-        //}
-
-
 //=====================================================================================================
         
         // the following functions save result files
 
         // Saves a plain text file result
-        public static void saveTextPromptResults(String promptName, string prompt, String textContent)
+        public static int saveTextPromptResults(String promptName, string prompt, String textContent)
         {
             // build file path for results
             string filePath = getResultFileName(promptName, ".rtf");
-            if (filePath.Equals(Constants.generalErrorString)) { return; }
-            System.Windows.Forms.MessageBox.Show(filePath);
+            if (filePath.Equals(Constants.generalErrorString)) { return -1; }
+            //System.Windows.Forms.MessageBox.Show(filePath);
 
             try
             {
@@ -136,17 +99,18 @@ namespace CreativityPractice
             {
                 Console.WriteLine(ex.Message);
                 System.Windows.Forms.MessageBox.Show(ex.Message);
+                return -1;
             }
+            return 0;
         }
 
         // copy a picture file from its current location to the submissions directory, with new name
-        public static void savePictureResult(string promptName, string sourcePath)
+        public static int savePictureResult(string promptName, string sourcePath)
         {
             // get the output filename
             string destinationPath = getResultFileName(promptName, System.IO.Path.GetExtension(sourcePath));
-            if (destinationPath.Equals(Constants.generalErrorString)) { return; }
-
-            System.Windows.Forms.MessageBox.Show(destinationPath);
+            if (destinationPath.Equals(Constants.generalErrorString)) { return -1; }
+            //System.Windows.Forms.MessageBox.Show(destinationPath);
 
             // now copy the file over
             try
@@ -158,7 +122,9 @@ namespace CreativityPractice
                 System.Windows.Forms.MessageBox.Show("Error copying file " + System.IO.Path.GetFileName(sourcePath) + " to " + destinationPath);
                 System.Windows.Forms.MessageBox.Show("Error copying file " + System.IO.Path.GetFileName(sourcePath) + " to " + 
                     destinationPath + "\nError: " + ex);
+                return -1;
             }
+            return 0;
         }
 
 
@@ -182,6 +148,15 @@ namespace CreativityPractice
                 }
             }
             return dir;
+        }
+
+        public static bool checkFile(string file)
+        {
+            if (!System.IO.File.Exists(file))
+            {
+                return false;
+            }
+            return true;
         }
 
         public static string getCategoryFileName(string category)
@@ -238,13 +213,13 @@ namespace CreativityPractice
             int i = 2;
             while (System.IO.File.Exists(filePath))
             {
+                filePath = System.IO.Path.Combine(directoryName, System.IO.Path.GetFileNameWithoutExtension(filePath));
                 // if already V2 or higher, remove version tag before adding new one
                 if (i > 2)
                 {
-                    filePath = System.IO.Path.Combine(directoryName, System.IO.Path.GetFileNameWithoutExtension(filePath));
                     filePath = filePath.Substring(0, filePath.Length - 3);
                 }
-                filePath = filePath.Substring(0, filePath.Length - 4) + "_V" + i + extension;
+                filePath = filePath + "_V" + i + extension;
                 i++;
             }
             return filePath;

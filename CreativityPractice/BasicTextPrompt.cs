@@ -73,12 +73,13 @@ namespace CreativityPractice
             int tim = 0;
             string bold = "";
             string gray = "";
-            string pic1;
-            string pic2;
+            string pic1 = "";
+            string pic2 = "";
             string mus = "";
 
             string[] promptLines = System.Text.RegularExpressions.Regex.Split(promptString, @"\r?\n|\r");
             List<string> pics = new List<string>();
+            bool readingBold = false;
 
             // parse the text file and populate the new BasicTextPrompt instance
             Console.WriteLine("Trying to parse text file!");
@@ -86,19 +87,43 @@ namespace CreativityPractice
             {
                 string line = promptLines[i];
                 string[] tokens = line.Split(':');
-                if (tokens.Length < 2) { continue; }
-                Console.WriteLine("token[0] = '" + tokens[0] + "' and token[1] = '" + tokens[1] + "'");
+                if (tokens.Length < 2 && line.Contains(":")) { continue; }
                 if (tokens[0].Equals("tag")) { nametag = line.Substring(line.IndexOf(':') + 2); }
                 if (tokens[0].Equals("creativityType")) { thinking = line.Substring(line.IndexOf(':') + 2); }
                 if (tokens[0].Equals("time")) { tim = Convert.ToInt32(tokens[1].Trim()); }
-                if (tokens[0].Equals("picture1")) { pic1 = line.Substring(line.IndexOf(':') + 2); 
-                                                    pics.Add(pic1); }
-                if (tokens[0].Equals("picture2")) { pic2 = line.Substring(line.IndexOf(':') + 2); 
-                                                    pics.Add(pic2); }
-                if (tokens[0].Equals("music")) { mus = line.Substring(line.IndexOf(':') + 2); }
+                if (tokens[0].Equals("picture1")) 
+                { 
+                    pic1 = line.Substring(line.IndexOf(':') + 2); 
+                    if (Functions.checkFile(pic1)) {pics.Add(pic1); }
+                    else { pics.Add(""); }
+                }
+                if (tokens[0].Equals("picture2")) 
+                { 
+                    pic2 = line.Substring(line.IndexOf(':') + 2);
+                    if (Functions.checkFile(pic2)) { pics.Add(pic2); }
+                    else { pics.Add(""); }
+                }
+                if (tokens[0].Equals("music")) 
+                { 
+                    mus = line.Substring(line.IndexOf(':') + 2); 
+                    if (!Functions.checkFile(mus)) { mus = ""; }
+                }
                 if (tokens[0].Equals("pictureResponse")) { }
-                if (tokens[0].Equals("boldPrompt")) { bold = line.Substring(line.IndexOf(':') + 2); }
-                if (tokens[0].Equals("grayPrompt")) { gray = line.Substring(line.IndexOf(':') + 2); }
+                if (tokens[0].Equals("boldPrompt")) 
+                {
+                    readingBold = true;
+                    bold = line.Substring(line.IndexOf(':') + 2);
+                    continue;
+                }
+                if (tokens[0].Equals("grayPrompt")) 
+                {
+                    readingBold = false;
+                    gray = line.Substring(line.IndexOf(':') + 2); 
+                }
+                if (readingBold)
+                {
+                    bold += Environment.NewLine + line;
+                }
             }
 
             // generate the new prompt
@@ -115,10 +140,10 @@ namespace CreativityPractice
 
             // find prompt file
             string outputDirectory = Constants.promptsDirectory;
-            string fileName = this.category + "Prompts.txt";
+            string fileName = Functions.getCategoryFileName(this.category);
             string outputFile = System.IO.Path.Combine(outputDirectory, fileName);
             Console.WriteLine("output file for new prompt is: " + outputFile);
-            System.Windows.Forms.MessageBox.Show("output file for new prompt is: " + outputFile);
+            //System.Windows.Forms.MessageBox.Show("output file for new prompt is: " + outputFile);
 
             // create output prompt file if it doesn't exist yet
             if (!System.IO.File.Exists(outputFile))

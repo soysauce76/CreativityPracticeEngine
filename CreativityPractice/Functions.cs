@@ -17,7 +17,7 @@ namespace CreativityPractice
         public static string submissionsDirectoryName = "Submissions";
         public static string initialPictureUploadDirectory = "C:/Users/Owner/Pictures";
         public static string generalErrorString = "ERROR";
-        public static string[] categories = { "Art", "Writing", "Poetry", "Music", "Engineering" };
+        public static string[] categories = { "Art", "Writing", "Poetry", "Music", "Engineering", "Miscellaneous" };
         public static string promptDelimiter = "======================";
 
         public static int maxPictureHeight = 250;
@@ -163,10 +163,6 @@ namespace CreativityPractice
         {
             string categoryFile = category + "Prompts.txt";
             string fileName = System.IO.Path.Combine(getPromptsDirectoryName(), categoryFile);
-            if (!System.IO.File.Exists(fileName))
-            {
-                return Constants.generalErrorString;
-            }
             return fileName;
         }
 
@@ -204,9 +200,13 @@ namespace CreativityPractice
         public static string getResultFileName(string promptName, string extension)
         {
             // build the file name and path
-            string directoryName = getCurrentDateDirectoryName();
+            //string directoryName = getCurrentDateDirectoryName();
+            string directoryName = getSubmissionsDirectoryName();
             if (directoryName.Equals(Constants.generalErrorString)) { return Constants.generalErrorString; }
-            string fileName = promptName + extension;
+
+            DateTime myDate = DateTime.Now;
+            string dateString = myDate.ToString("_MMM_dd_yyy"); 
+            string fileName = promptName + dateString + extension;
             string filePath = System.IO.Path.Combine(directoryName, fileName);
 
             // in case there is a similarly named file, rename this one with V2, V3 etc.

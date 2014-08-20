@@ -1,0 +1,17 @@
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Release\CreativityPractice.exe.config
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\Interop.WMPLib.dll
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\AxInterop.WMPLib.dll
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.csproj.ResolveComReference.cache
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Release\CreativityPractice.exe
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Release\CreativityPractice.pdb
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Release\Interop.WMPLib.dll
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\bin\Release\AxInterop.WMPLib.dll
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.BasicTextPromptForm.resources
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.bigPictureForm.resources
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.CreateNewPromptsForm.resources
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.EntryMenu.resources
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.Properties.Resources.resources
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.csproj.GenerateResource.Cache
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.exe
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.pdb
+C:\Users\Owner\Documents\Visual Studio 2012\Projects\CreativityPractice\CreativityPractice\obj\Release\CreativityPractice.csprojResolveAssemblyReference.cache

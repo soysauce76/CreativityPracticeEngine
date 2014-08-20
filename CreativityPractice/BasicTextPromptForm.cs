@@ -42,6 +42,7 @@ namespace CreativityPractice
         public void InitializePrompt(BasicTextPrompt input) 
         {
             timer1.Stop();
+            timer1.Interval = secondSpeed;
 
             // reset basic format
             boldPromptBox.Font = new Font(boldPromptBox.Font.FontFamily, 11, FontStyle.Bold);

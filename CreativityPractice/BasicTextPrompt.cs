@@ -88,22 +88,30 @@ namespace CreativityPractice
                 string line = promptLines[i];
                 string[] tokens = line.Split(':');
                 if (tokens.Length < 2 && line.Contains(":")) { continue; }
+                if (tokens.Length < 2 || !line.Contains(":"))
+                {
+                    if (readingBold)
+                    {
+                        bold += Environment.NewLine + line;
+                    }
+                    continue;
+                }
                 if (tokens[0].Equals("tag")) { nametag = line.Substring(line.IndexOf(':') + 2); }
                 if (tokens[0].Equals("creativityType")) { thinking = line.Substring(line.IndexOf(':') + 2); }
                 if (tokens[0].Equals("time")) { tim = Convert.ToInt32(tokens[1].Trim()); }
-                if (tokens[0].Equals("picture1")) 
+                if (tokens[0].Equals("picture1") && line.Contains(":")) 
                 { 
                     pic1 = line.Substring(line.IndexOf(':') + 2); 
                     if (Functions.checkFile(pic1)) {pics.Add(pic1); }
                     else { pics.Add(""); }
                 }
-                if (tokens[0].Equals("picture2")) 
+                if (tokens[0].Equals("picture2") && line.Contains(":")) 
                 { 
                     pic2 = line.Substring(line.IndexOf(':') + 2);
                     if (Functions.checkFile(pic2)) { pics.Add(pic2); }
                     else { pics.Add(""); }
                 }
-                if (tokens[0].Equals("music")) 
+                if (tokens[0].Equals("music") && line.Contains(":")) 
                 { 
                     mus = line.Substring(line.IndexOf(':') + 2); 
                     if (!Functions.checkFile(mus)) { mus = ""; }
